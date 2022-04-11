@@ -58,6 +58,9 @@ public class EduForumsApplication {
 				 }
 			);
 			
+			System.out.println(teacher.hashCode());
+			System.out.println(subject.getSubjectTeacher().hashCode());
+			
 			
 			/* Using MongoTemplateandQuery
 			Query query = new Query();
