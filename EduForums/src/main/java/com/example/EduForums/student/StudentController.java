@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 // api/v1/student/1?name=Gauea,
 @Controller
-@RequestMapping(path="api/v1/student") // localhost/api/vi/student
+@RequestMapping(path="") // localhost/api/vi/student
 public class StudentController {
 
 	// reference
@@ -41,7 +41,7 @@ public class StudentController {
 	
 
 
-	@GetMapping(value = {"", "/index"})
+	@GetMapping(value =  "/student")
 	public String index( Model model) {
 		model.addAttribute("students", studentService.getStudents());
 		return studentView.index(model);		// View
