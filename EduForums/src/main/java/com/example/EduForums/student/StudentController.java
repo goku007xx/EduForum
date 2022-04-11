@@ -2,10 +2,9 @@ package com.example.EduForums.student;
 
 
 
-//import java.util.List;
+// import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-//import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.bind.annotation.RestController;
 
 // api/v1/student/1?name=Gauea,
 @Controller
-@RequestMapping(path="") // localhost/api/vi/student
+@RequestMapping(path="/student") // localhost/api/vi/student
 public class StudentController {
 
 	// reference
@@ -41,7 +40,7 @@ public class StudentController {
 	
 
 
-	@GetMapping(value =  "/student")
+	@GetMapping("")
 	public String index( Model model) {
 		model.addAttribute("students", studentService.getStudents());
 		return studentView.index(model);		// View
@@ -50,7 +49,7 @@ public class StudentController {
 	
 	
 	@PostMapping
-	 @ResponseBody
+	@ResponseBody
 	public String registerNewStudent(@RequestBody Student student) {
 		studentService.addNewStudent(student);
 		
@@ -67,7 +66,7 @@ public class StudentController {
 	
 	@DeleteMapping(path = "{studentId}")
 	 @ResponseBody
-	public String deleteStudent(@PathVariable("studentId") Long studentId) {
+	public String deleteStudent(@PathVariable("studentId") String studentId) {
 		studentService.deleteStudent(studentId);
 		
 		return "deleted";
@@ -78,7 +77,7 @@ public class StudentController {
 	@PutMapping(path = "{studentId}")
 	 @ResponseBody
 	public String updateStudent(
-			@PathVariable("studentId") Long studentId,
+			@PathVariable("studentId") String studentId,
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String email
 			)

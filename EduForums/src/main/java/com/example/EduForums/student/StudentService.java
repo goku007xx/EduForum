@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 //import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
+
 
 //@Component		// add depencdeny: autowired: impilicit instantiation
 @Service
@@ -44,7 +45,7 @@ public class StudentService {
 		studentRepository.save(student);
 	}
 	
-	public void deleteStudent(Long studentId) {
+	public void deleteStudent(String studentId) {
 		//studentRepository.findById(studentId);
 		boolean exists = studentRepository.existsById(studentId);
 		if(!exists) {
@@ -55,7 +56,7 @@ public class StudentService {
 	
 	
 	@Transactional	// we don't have to implement any JPQL query: use setters to automaticatically update the entity in DB
-	public void updateStudent(Long studentId, String name, String email) {
+	public void updateStudent(String studentId, String name, String email) {
 		
 		Student student = studentRepository.findById(studentId)
 					.orElseThrow(

@@ -2,18 +2,18 @@ package com.example.EduForums.student;
 
 import java.util.Optional;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
-@Repository
 public interface StudentRepository	// Type, ID_type
-		extends JpaRepository<Student, Long >{
+		extends MongoRepository<Student, String>{
 	
-	// JPQL
-	@Query("SELECT s FROM Student s Where s.email=?1")
+	
 	Optional<Student> findStudentByEmail(String email);
 	
+	
+	Optional<Student> findById(String studentId);
+
+	
+	boolean existsById(String studentId);
 	
 }

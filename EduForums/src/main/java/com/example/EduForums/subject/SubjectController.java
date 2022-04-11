@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.example.EduForums.subject.SubjectService;
 
 @RestController
-@RequestMapping(path="") // localhost/api/vi/student
+@RequestMapping(path="/subject") // localhost/api/vi/student
 public class SubjectController {
 	
 private final SubjectService subjectService;
@@ -22,7 +22,7 @@ private final SubjectService subjectService;
 	}
 	
 	
-	@GetMapping("/subject")
+	@GetMapping("")
 	public List<Subject> fetchAllSubjects()
 	{
 		return subjectService.getAllSubjects();

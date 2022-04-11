@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(path="") // localhost/api/vi/student
+@RequestMapping(path="/teacher") // localhost/api/vi/student
 public class TeacherController {
 
 	private final TeacherService teacherService;
@@ -21,7 +21,7 @@ public class TeacherController {
 	}
 	
 	
-	@GetMapping("/teacher")
+	@GetMapping("")
 	public List<Teacher> fetchAllTeachers()
 	{
 		return teacherService.getAllTeachers();

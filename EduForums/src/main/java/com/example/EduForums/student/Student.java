@@ -6,49 +6,29 @@ import java.time.Period;
 //import org.hibernate.annotations.Entity;
 //import org.hibernate.annotations.Table;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity	// Hibernate
-@Table 	// for DB
+
+@Document(collection = "Student")	// To say that this class's object will be a collection in Mongo
 public class Student {
 	
 	@Id
-	@SequenceGenerator(
-			name = "student_sequence",
-			sequenceName = "student_sequence",
-			allocationSize=1
-	)
-	
-	@GeneratedValue(
-			strategy = GenerationType.SEQUENCE,
-			generator = "student_sequence"
-	)
-	
-	private Long id;
+	private String id;
 	private String name;
+	
+	@Indexed(unique = true)
 	private String email;
+	
 	private LocalDate dob;
 	
-	@Transient			// no need input in db, calculated for us
+	@Transient			// no need input in db: no need to persist, calculated for us
 	private Integer age;
 	
 	public Student() {
 		
-	}
-
-	public Student(Long id, String name, String email, LocalDate dob) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.dob = dob;
-//		this.age = age;
 	}
 
 	public Student(String name, String email, LocalDate dob) {
@@ -59,11 +39,12 @@ public class Student {
 //		this.age = age;
 	}
 
-	public Long getId() {
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
