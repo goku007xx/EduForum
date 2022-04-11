@@ -1,18 +1,6 @@
-package com.example.EduForums;
+package springmongo.m_app;
 
 import java.math.BigDecimal;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import com.example.EduForums.teacher.Gender;
-//import com.example.EduForums.teacher.MongoTemplate;
-import com.example.EduForums.teacher.Teacher;
-import com.example.EduForums.teacher.TeacherRepository;
-
-//import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -24,10 +12,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 @SpringBootApplication
-public class EduForumsApplication {
+public class MAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EduForumsApplication.class, args);
+		SpringApplication.run(MAppApplication.class, args);
 	}
 	
 	@Bean
@@ -69,5 +57,4 @@ public class EduForumsApplication {
 		};
 
 	}
-
 }
