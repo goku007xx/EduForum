@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.EduForums.subject.Subject;
+import com.example.EduForums.subject.SubjectRepository;
 import com.example.EduForums.teacher.Gender;
 //import com.example.EduForums.teacher.MongoTemplate;
 import com.example.EduForums.teacher.Teacher;
@@ -31,17 +33,28 @@ public class EduForumsApplication {
 	}
 	
 	@Bean
-	CommandLineRunner runner(TeacherRepository repository , MongoTemplate mongoTemplate) {
+	CommandLineRunner runner(TeacherRepository trepository, SubjectRepository srepository , MongoTemplate mongoTemplate) {
 		return args -> {
 			
 			String email = "anudeep@gmail.com";
 			Teacher teacher = new Teacher("Anudeep","anudeep@gmail.com",Gender.FEMALE,BigDecimal.TEN);
 			
-			repository.findTeacherByEmail(email).ifPresentOrElse
+			trepository.findTeacherByEmail(email).ifPresentOrElse
 			(s -> {System.out.println(s + "Teacher already exists");}
 			, 
 			()-> {System.out.println("Inserting teacher now" + teacher);
-				  repository.insert(teacher);
+				  trepository.insert(teacher);
+				 }
+			);
+			
+			String subjectCode = "OOADJ57";
+			Subject subject = new Subject("OOADJ",teacher,subjectCode);
+			
+			srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
+			(s -> {System.out.println(s + "Subject already exists");}
+			, 
+			()-> {System.out.println("Inserting subject now" + subject);
+				  srepository.insert(subject);
 				 }
 			);
 			
