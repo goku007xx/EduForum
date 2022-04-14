@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.EduForums.subject.Subject;
-import com.example.EduForums.subject.SubjectRepository;
+// import com.example.EduForums.subject.Subject;
+// import com.example.EduForums.subject.SubjectRepository;
 import com.example.EduForums.teacher.Gender;
 //import com.example.EduForums.teacher.MongoTemplate;
 import com.example.EduForums.teacher.Teacher;
@@ -34,7 +34,7 @@ public class EduForumsApplication {
 	}
 	
 	@Bean
-	CommandLineRunner runner(TeacherRepository trepository, SubjectRepository srepository , MongoTemplate mongoTemplate) {
+	CommandLineRunner runner(TeacherRepository trepository, MongoTemplate mongoTemplate) {
 		return args -> {
 			
 			String email = "anudeep@gmail.com";
@@ -45,22 +45,25 @@ public class EduForumsApplication {
 			, 
 			()-> {System.out.println("Inserting teacher now" + teacher);
 				  trepository.insert(teacher);
-				 }
+
+				 System.out.println(teacher);
+				 System.out.println("AAAA");
+				}
 			);
 			
-			String subjectCode = "OOADJ57";
-			Subject subject = new Subject("OOADJ",teacher,subjectCode);
+			// String subjectCode = "OOADJ57";
+			// Subject subject = new Subject("OOADJ",teacher,subjectCode);
 			
-			srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
-			(s -> {System.out.println(s + "Subject already exists");}
-			, 
-			()-> {System.out.println("Inserting subject now" + subject);
-				  srepository.insert(subject);
-				 }
-			);
+			// srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
+			// (s -> {System.out.println(s + "Subject already exists");}
+			// , 
+			// ()-> {System.out.println("Inserting subject now" + subject);
+			// 	  srepository.insert(subject);
+			// 	 }
+			// );
 			
-			System.out.println(teacher.hashCode());
-			System.out.println(subject.getSubjectTeacher().hashCode());
+			// System.out.println(teacher.hashCode());
+			// System.out.println(subject.getSubjectTeacher().hashCode());
 			
 			
 			/* Using MongoTemplateandQuery

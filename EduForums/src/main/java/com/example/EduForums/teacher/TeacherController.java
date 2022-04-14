@@ -2,7 +2,7 @@ package com.example.EduForums.teacher;
 
 import java.util.List;
 
-import com.example.EduForums.subject.Subject;
+// import com.example.EduForums.subject.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +32,9 @@ public class TeacherController {
 		return teacherService.getAllTeachers();
 	}
 
-	@PostMapping
-	@ResponseBody
-	public String createNewSubject(@RequestBody Subject subject) {
-		return "TODO";
-	}
+	// @PostMapping
+	// @ResponseBody
+	// public String createNewSubject(@RequestBody Subject subject) {
+	// 	return "TODO";
+	// }
 }

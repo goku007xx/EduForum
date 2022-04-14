@@ -33,7 +33,9 @@ public class StudentConfig {
 			(s -> {System.out.println(s + "Student already exists");}
 			, 
 			()-> {System.out.println("Inserting Student now" + maram);
-				  repository.insert(maram);
+					System.out.println(maram);
+					System.out.println("AAAA");
+					repository.insert(maram);
 				 }
 			);
 
@@ -41,8 +43,10 @@ public class StudentConfig {
 			(s -> {System.out.println(s + "Student already exists");}
 			, 
 			()-> {System.out.println("Inserting Student now" + alex);
-				  repository.insert(alex);
-				 }
+			System.out.println(alex);
+			System.out.println("AAAA");
+					repository.insert(alex);
+				}
 			);
 		};
 	}
