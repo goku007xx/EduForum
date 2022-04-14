@@ -2,6 +2,9 @@ package com.example.EduForums.teacher;
 
 import java.math.BigDecimal;
 
+import com.example.EduForums.user.Dept;
+import com.example.EduForums.user.User;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,50 +13,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 //@Data
 @Document(collection = "Teacher")	// To say that this class's object will be a collection in Mongo
-public class Teacher {
+public class Teacher extends User{
 	
-	@Id
-	private String id;
-	private String name;
-	
-	@Indexed(unique = true)
-	private String email;
 	
 	private Gender gender;
 	
 	private BigDecimal salary;
-	
-	public Teacher(String name, String email, Gender gender, BigDecimal salary) {
-		super();
-		this.name = name;
-		this.email = email;
+
+	public Teacher(String name, Dept dept, String email, Gender gender, BigDecimal salary) {
+		super(name, dept, email);
 		this.gender = gender;
 		this.salary = salary;
 	}
+
 	
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public Gender getGender() {
 		return gender;
@@ -72,8 +45,10 @@ public class Teacher {
 	}
 
 	@Override
-	public String toString()
-	{
-		return String.format("Teacher[name='%s']", name);
+	public String toString() {
+		return "Teacher [Dept=" + Dept + ", email=" + email + ", id=" + id + ", name=" + name + "gender=" + gender + ", salary=" + salary + "]";
 	}
+	
+	
+	
 }

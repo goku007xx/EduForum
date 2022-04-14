@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import com.example.EduForums.user.Dept;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +19,13 @@ public class StudentConfig {
 		return args -> {
 			String email1 = "maram@gmail.com";
 			Student maram = new Student(
-					"Maram", email1, LocalDate.of(2000, Month.JANUARY, 5)
+					"Maram", Dept.CSE, email1, "cs467", "G", "6",LocalDate.of(2000, Month.JANUARY, 5)
 			);
 			
 
 			String email2 = "alex@gmail.com";
 			Student alex = new Student(
-					"Alex", email2, LocalDate.of(2000, Month.APRIL, 5)
+				"Alex", Dept.ECE, email2, "ec467", "B", "4",LocalDate.of(2001, Month.FEBRUARY, 5)
 			);
 			
 			

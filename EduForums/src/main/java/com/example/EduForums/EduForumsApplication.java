@@ -13,6 +13,7 @@ import com.example.EduForums.teacher.Gender;
 //import com.example.EduForums.teacher.MongoTemplate;
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.teacher.TeacherRepository;
+import com.example.EduForums.user.Dept;
 
 //import java.math.BigDecimal;
 import java.util.List;
@@ -37,7 +38,7 @@ public class EduForumsApplication {
 		return args -> {
 			
 			String email = "anudeep@gmail.com";
-			Teacher teacher = new Teacher("Anudeep","anudeep@gmail.com",Gender.FEMALE,BigDecimal.TEN);
+			Teacher teacher = new Teacher("Anudeep",Dept.CSE,"anudeep@gmail.com",Gender.FEMALE,BigDecimal.TEN);
 			
 			trepository.findTeacherByEmail(email).ifPresentOrElse
 			(s -> {System.out.println(s + "Teacher already exists");}

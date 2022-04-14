@@ -1,7 +1,12 @@
 package com.example.EduForums.student;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+// import java.util.Date;
+
+import com.example.EduForums.user.Dept;
+import com.example.EduForums.user.User;
 
 //import org.hibernate.annotations.Entity;
 //import org.hibernate.annotations.Table;
@@ -13,77 +18,96 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection = "Student")	// To say that this class's object will be a collection in Mongo
-public class Student {
+public class Student extends User{
 	
-	@Id
-	private String id;
-	private String name;
+	// @Id
+	// private String id;
+	// private String name;
 	
-	@Indexed(unique = true)
-	private String email;
+	// @Indexed(unique = true)
+	// private String email;
 	
+	private String srn;
+	private String section;
+	private String sem;
 	private LocalDate dob;
 	
 	@Transient			// no need input in db: no need to persist, calculated for us
 	private Integer age;
 	
-	public Student() {
-		
-	}
 
-	public Student(String name, String email, LocalDate dob) {
-		super();
-		this.name = name;
-		this.email = email;
+	public Student(String name, Dept dept, String email, String srn, String section,
+		String sem, LocalDate dob) {
+		super(name, dept, email);
+		this.srn = srn;
+		this.section = section;
+		this.sem = sem;
 		this.dob = dob;
-//		this.age = age;
+		// this.age = age;
 	}
 
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+
+
+
+	public String getSrn() {
+		return srn;
 	}
 
-	public String getName() {
-		return name;
+
+	public void setSrn(String srn) {
+		this.srn = srn;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+	public String getSection() {
+		return section;
 	}
 
-	public String getEmail() {
-		return email;
+
+	public void setSection(String section) {
+		this.section = section;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+	public String getSem() {
+		return sem;
 	}
+
+
+	public void setSem(String sem) {
+		this.sem = sem;
+	}
+
 
 	public LocalDate getDob() {
 		return dob;
 	}
 
+
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
+
 	public Integer getAge() {
-		
-		return Period.between(this.dob, LocalDate.now()).getYears();
+		return Period.between(dob,  LocalDate.now()).getYears();
 	}
+
 
 	public void setAge(Integer age) {
 		this.age = age;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Student [id=" + this.id + ", name=" + this.name + ", email=" + this.email + ", dob=" + this.dob + ", age=" + this.age + "]";
+		return "Student [Dept=" + Dept + ", email=" + email + ", id=" + id + ", name=" + name + "age=" + age + ", dob=" + dob + ", section=" + section + ", sem=" + sem + ", srn=" + srn + "]";
 	}
-	
+
+
 }
