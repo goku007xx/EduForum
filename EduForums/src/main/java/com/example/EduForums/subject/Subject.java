@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.topic.Topic;
+import com.example.EduForums.user.User;
 
 @Document(collection = "Subject")
 public class Subject {
@@ -19,6 +20,8 @@ public class Subject {
 	
 	// list of subs for the subject
 	private ArrayList<Topic> subjectTopics;
+
+	private ArrayList<User> subjectAccess;
 	
 
 	@Indexed(unique = true)
@@ -26,6 +29,19 @@ public class Subject {
 	
 	
 	
+	public Subject(String subjectId, String subjectName, Teacher subjectTeacher, ArrayList<Topic> subjectTopics,
+			ArrayList<User> subjectAccess, String subjectCode) {
+		this.subjectId = subjectId;
+		this.subjectName = subjectName;
+		this.subjectTeacher = subjectTeacher;
+		this.subjectTopics = new ArrayList<Topic>();
+		this.subjectAccess = new ArrayList<User>();
+		this.subjectCode = subjectCode;
+	}
+
+
+
+
 	public Subject() {
 	}
 	
@@ -110,16 +126,28 @@ public class Subject {
 	}
 
 
-
-
-
-	public Subject(String subjectName, Teacher subjectTeacher, String subjectCode) {
-		super();
-		this.subjectName = subjectName;
-		this.subjectTeacher = subjectTeacher;
-		this.subjectCode = subjectCode;
-		this.subjectTopics = new ArrayList<Topic>();
+	
+	public ArrayList<User> getSubjectAccess() {
+		return subjectAccess;
 	}
+
+
+
+
+
+	public void setSubjectAccess(ArrayList<User> subjectAccess) {
+		this.subjectAccess = subjectAccess;
+	}
+
+
+
+	// public Subject(String subjectName, Teacher subjectTeacher, String subjectCode) {
+	// 	super();
+	// 	this.subjectName = subjectName;
+	// 	this.subjectTeacher = subjectTeacher;
+	// 	this.subjectCode = subjectCode;
+	// 	this.subjectTopics = new ArrayList<Topic>();
+	// }
 	
 	@Override
 	public String toString()
