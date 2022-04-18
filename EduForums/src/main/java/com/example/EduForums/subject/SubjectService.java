@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.example.EduForums.student.Student;
 import com.example.EduForums.topic.Topic;
+import com.example.EduForums.topic.TopicService;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SubjectService {
-private final SubjectRepository subjectRepository;
-	
+	private final SubjectRepository subjectRepository;
+	private final TopicService topicService;
 	
 	@Autowired
-	public SubjectService(SubjectRepository subjectRepository) {
+	public SubjectService(SubjectRepository subjectRepository, TopicService topicService) {
 	    this.subjectRepository = subjectRepository;
+		this.topicService = topicService;
 	}
 	
 	
@@ -48,7 +50,7 @@ private final SubjectRepository subjectRepository;
 
 
 // pass subcode, topic obj, user obj
-	public void addTopic(String subjectCode, String email, Topic topic)
+	public void addTopic(String subjectCode, String topicName, Subject belongsToSubject, User owner)
 	{
 	
 		
@@ -63,31 +65,28 @@ private final SubjectRepository subjectRepository;
 								()-> new IllegalStateException("subject with subjectCOde "+ subjectCode + " doesn't exist")
 							);
 							
-		boolean flag=false;
-		subject.getSubjectAccess().forEach(user->{
-			if(user.getEmail()==email)
-			{
-				flag=true;
-				break;
-			}
-		});
+		boolean flag = subject.getSubjectAccess().contains(owner);
 
 		if(!flag)
-			throw new IllegalStateException("No access to subject with subcode:"+subjectCode+" for user:"+user);
-
-		if(topic!=null)
-		{
-			ArrayList<Topic> tlist = subject.getSubjectTopics();
-			tlist.add(topic);
-
-			// FOr DB
-			subject.setSubjectTopics(tlist);
-		}
-
+			throw new IllegalStateException("No access to subject with subcode:"+subjectCode+" for user:"+owner);
 		else
 		{
-			throw new IllegalStateException("No topic object passed");
+			Topic topic = topicService.createTopic(topicName, belongsToSubject, owner);
+			if(topic!=null)
+			{
+				ArrayList<Topic> tlist = subject.getSubjectTopics();
+				tlist.add(topic);
+
+				// FOr DB
+				subject.setSubjectTopics(tlist);
+			}
+
+			else
+			{
+				throw new IllegalStateException("No topic object passed");
+			}
 		}
+		
 	}
 
 
@@ -120,5 +119,14 @@ private final SubjectRepository subjectRepository;
 		}
 	}
 
+	// Display topic and provide option to close for owner: using session
+	public ArrayList<Topic> getTopicsForSubject(String subjectCode) {
+		Subject subject = subjectRepository.findById(subjectCode)
+					.orElseThrow(
+								()-> new IllegalStateException("subject with subjectCOde "+ subjectCode + " doesn't exist")
+							);
+
+		return subject.getSubjectTopics();
+    }
 	
 }

@@ -17,12 +17,16 @@ public class Topic {
 	private TopicStatus status;
 	private ArrayList<Post> topicPosts;
 	
-	public Topic(String topicId, String topicName, Subject belongsToSubject, User owner, TopicStatus status) {
-		this.topicId = topicId;
+	public Topic( String topicName, Subject belongsToSubject, User owner) {
+		// this.topicId = topicId;
 		this.topicName = topicName;
 		this.belongsToSubject = belongsToSubject;
 		this.owner = owner;
-		this.status = status;
+		this.status = TopicStatus.ONGOING;
+	}
+
+	public Topic(){
+
 	}
 
 	public String getTopicId() {
