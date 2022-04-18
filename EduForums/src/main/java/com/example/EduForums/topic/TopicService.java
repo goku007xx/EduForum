@@ -7,7 +7,9 @@ import com.example.EduForums.subject.SubjectService;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TopicService {
     private final TopicRepository topicRepository;
 
