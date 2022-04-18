@@ -55,15 +55,15 @@ private final SubjectService subjectService;
 	}
 
 
-	@PostMapping(path = "addTopic/{subjectCode}")
-	@ResponseBody
-	public void addTopic(
-		@PathVariable("subjectCode") String subjectCode,
-		@RequestParam(required = true) String email,
-		@RequestBody Topic topic
-		)
-	{
-		subjectService.addTopic(subjectCode, email, topic);
-	}
+	// @PostMapping(path = "addTopic/{subjectCode}")
+	// @ResponseBody
+	// public void addTopic(
+	// 	@PathVariable("subjectCode") String subjectCode,
+	// 	@RequestParam(required = true) String email,
+	// 	@RequestBody Topic topic
+	// 	)
+	// {
+	// 	subjectService.addTopic(subjectCode, topicName, );
+	// }
 	
 }
