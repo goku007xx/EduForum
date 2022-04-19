@@ -106,7 +106,7 @@ public class Student extends User{
 
 	@Override
 	public String toString() {
-		return "Student [Dept=" + Dept + ", email=" + email + ", id=" + id + ", name=" + name + "age=" + age + ", dob=" + dob + ", section=" + section + ", sem=" + sem + ", srn=" + srn + "]";
+		return "Student [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "age=" + age + ", dob=" + dob + ", section=" + section + ", sem=" + sem + ", srn=" + srn + "]";
 	}
 
 

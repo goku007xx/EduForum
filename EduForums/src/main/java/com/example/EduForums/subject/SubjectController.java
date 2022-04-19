@@ -41,6 +41,7 @@ private final SubjectService subjectService;
 	@ResponseBody
 	public void registerNewSubject(@RequestBody Subject subject){
 		subjectService.createSubject(subject);
+		System.out.println("Subject added");
 	}
 
 

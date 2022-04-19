@@ -46,7 +46,7 @@ public class Teacher extends User{
 
 	@Override
 	public String toString() {
-		return "Teacher [Dept=" + Dept + ", email=" + email + ", id=" + id + ", name=" + name + "gender=" + gender + ", salary=" + salary + "]";
+		return "Teacher [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "gender=" + gender + ", salary=" + salary + "]";
 	}
 	
 	

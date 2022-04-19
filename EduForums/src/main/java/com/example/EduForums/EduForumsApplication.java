@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.EduForums.subject.Subject;
+import com.example.EduForums.subject.SubjectRepository;
 // import com.example.EduForums.subject.Subject;
 // import com.example.EduForums.subject.SubjectRepository;
 import com.example.EduForums.teacher.Gender;
@@ -34,7 +36,7 @@ public class EduForumsApplication {
 	}
 	
 	@Bean
-	CommandLineRunner runner(TeacherRepository trepository, MongoTemplate mongoTemplate) {
+	CommandLineRunner runner(TeacherRepository trepository, SubjectRepository srepository,  MongoTemplate mongoTemplate) {
 		return args -> {
 			
 			String email = "anudeep@gmail.com";
@@ -50,6 +52,21 @@ public class EduForumsApplication {
 				 System.out.println("AAAA");
 				}
 			);
+
+			Subject subject = new Subject("CC",teacher,"CCXYZ");
+			// srepository.insert(subject);
+			/*
+			srepository.findTeacherByEmail(email).ifPresentOrElse
+			(s -> {System.out.println(s + "Teacher already exists");}
+			, 
+			()-> {System.out.println("Inserting teacher now" + teacher);
+				  trepository.insert(teacher);
+
+				 System.out.println(teacher);
+				 System.out.println("AAAA");
+				}
+			);
+			*/
 			
 			// String subjectCode = "OOADJ57";
 			// Subject subject = new Subject("OOADJ",teacher,subjectCode);

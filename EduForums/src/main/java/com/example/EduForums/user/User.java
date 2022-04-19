@@ -15,14 +15,14 @@ public class User {
 	@Id
 	protected String id;
 	protected String name;
-	protected Dept Dept;
+	protected Dept dept;
 
 	@Indexed(unique = true)
 	protected String email;
 
 	public User(String name, Dept dept, String email) {
 		this.name = name;
-		Dept = dept;
+		this.dept = dept;
 		this.email = email;
 	}
 
@@ -52,12 +52,12 @@ public class User {
 
 	
 	public void setDept(Dept dept) {
-		Dept = dept;
+		this.dept = dept;
 	}
 
 	
 	public Dept getDept() {
-		return Dept;
+		return dept;
 	}
 
 	public String getEmail() {
@@ -70,7 +70,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [Dept=" + Dept + ", email=" + email + ", id=" + id + ", name=" + name + "]";
+		return "User [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "]";
 	}	
 	
 }

@@ -29,9 +29,8 @@ public class Subject {
 	
 	
 	
-	public Subject(String subjectId, String subjectName, Teacher subjectTeacher, ArrayList<Topic> subjectTopics,
-			ArrayList<User> subjectAccess, String subjectCode) {
-		this.subjectId = subjectId;
+	public Subject( String subjectName, Teacher subjectTeacher, String subjectCode) {
+		// this.subjectId = subjectId;
 		this.subjectName = subjectName;
 		this.subjectTeacher = subjectTeacher;
 		this.subjectTopics = new ArrayList<Topic>();
