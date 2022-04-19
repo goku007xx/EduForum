@@ -37,6 +37,8 @@ private final SubjectService subjectService;
 		return subjectService.getAllSubjects();
 	}
 
+
+		
 	@PostMapping("addSub")
 	@ResponseBody
 	public void registerNewSubject(@RequestBody Subject subject){
@@ -44,15 +46,24 @@ private final SubjectService subjectService;
 		System.out.println("Subject added");
 	}
 
-
-	@PostMapping(path="addAccess/{subjectCode}")
+		/* DONE */
+	@PutMapping(path="addAccess/{userType}/{subjectCode}")
 	@ResponseBody
 	public void addUser(
+		@PathVariable("userType") String userType,
 		@PathVariable("subjectCode") String subjectCode,
-		@RequestBody User user
+		@RequestParam(required = true) String email
 		)
 	{
-		subjectService.addAccess(subjectCode, user);
+		System.out.println(userType+" "+subjectCode);
+		if(userType.equals("Student"))
+			subjectService.addStudentAccess(subjectCode, email);
+		else if(userType.equals("Teacher"))
+			subjectService.addTeacherAccess(subjectCode, email);
+		else
+		{
+			System.out.println("INVALID PATH , please specify user type");
+		}
 	}
 
 

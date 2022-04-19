@@ -18,7 +18,7 @@ import com.example.EduForums.teacher.TeacherRepository;
 import com.example.EduForums.user.Dept;
 
 //import java.math.BigDecimal;
-import java.util.List;
+// import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -39,8 +39,8 @@ public class EduForumsApplication {
 	CommandLineRunner runner(TeacherRepository trepository, SubjectRepository srepository,  MongoTemplate mongoTemplate) {
 		return args -> {
 			
-			String email = "anudeep@gmail.com";
-			Teacher teacher = new Teacher("Anudeep",Dept.CSE,"anudeep@gmail.com",Gender.FEMALE,BigDecimal.TEN);
+			String email = "anusha@gmail.com";
+			Teacher teacher = new Teacher("Anusha",Dept.CSE,email,Gender.FEMALE,BigDecimal.TEN);
 			
 			trepository.findTeacherByEmail(email).ifPresentOrElse
 			(s -> {System.out.println(s + "Teacher already exists");}
@@ -53,7 +53,18 @@ public class EduForumsApplication {
 				}
 			);
 
-			Subject subject = new Subject("CC",teacher,"CCXYZ");
+			String subjectCode = "CCXY1";
+			Subject subject = new Subject("CC",teacher,subjectCode);
+			
+			srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
+			(s -> {System.out.println(s + "Subject already exists");}
+			, 
+			()-> {System.out.println("Inserting subject now" + subject);
+				  srepository.insert(subject);
+				 }
+			);
+
+			// Subject subject = new Subject("CC",teacher,"CCXYZ");
 			// srepository.insert(subject);
 			/*
 			srepository.findTeacherByEmail(email).ifPresentOrElse
@@ -68,16 +79,7 @@ public class EduForumsApplication {
 			);
 			*/
 			
-			// String subjectCode = "OOADJ57";
-			// Subject subject = new Subject("OOADJ",teacher,subjectCode);
 			
-			// srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
-			// (s -> {System.out.println(s + "Subject already exists");}
-			// , 
-			// ()-> {System.out.println("Inserting subject now" + subject);
-			// 	  srepository.insert(subject);
-			// 	 }
-			// );
 			
 			// System.out.println(teacher.hashCode());
 			// System.out.println(subject.getSubjectTeacher().hashCode());

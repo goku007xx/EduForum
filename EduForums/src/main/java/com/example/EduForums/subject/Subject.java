@@ -19,6 +19,7 @@ public class Subject {
 	private Teacher subjectTeacher;
 	
 	// list of subs for the subject
+	
 	private ArrayList<Topic> subjectTopics;
 
 	private ArrayList<User> subjectAccess;
