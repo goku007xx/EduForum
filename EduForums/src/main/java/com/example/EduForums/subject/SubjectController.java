@@ -2,10 +2,12 @@ package com.example.EduForums.subject;
 
 import java.util.List;
 
+import com.example.EduForums.student.Student;
 import com.example.EduForums.topic.Topic;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,20 +33,39 @@ private final SubjectService subjectService;
 	}
 	
 	
-	@GetMapping("")
-	public List<Subject> fetchAllSubjects()
-	{
-		return subjectService.getAllSubjects();
-	}
+	// @GetMapping("")
+	// public String viewSubjects(
+	// 	@PathVariable("email") String email,
+	// 	Model model)
+	// {
+	// 	model.addAttribute("students", subjectService.getUserSubjects(email));
+	// 	return "subjects_view";		// View
+	// }
 
 
 		
+	// @GetMapping("/addSub")
+	// public String Subjectform(Model model) {
+		
+	// 	Student sd = new Student();
+	// 	model.addAttribute("item", fd);
+	// 	return "new_item";
+	// 	model.addAttribute("item", fd);
+	// 	return "new_item";
+	// }
+	
+		
+
+
 	@PostMapping("addSub")
 	@ResponseBody
 	public void registerNewSubject(@RequestBody Subject subject){
 		subjectService.createSubject(subject);
 		System.out.println("Subject added");
 	}
+
+
+
 
 		/* DONE */
 	@PutMapping(path="addAccess/{userType}/{subjectCode}")

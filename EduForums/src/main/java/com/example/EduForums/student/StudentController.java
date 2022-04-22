@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 // api/v1/student/1?name=Gauea,
 @Controller
-@RequestMapping(path="/student") // localhost/api/vi/student
+// @RequestMapping(path="/student") // localhost/api/vi/student
 public class StudentController {
 
 	// reference
@@ -40,20 +41,28 @@ public class StudentController {
 	
 
 
-	@GetMapping("")
+	@GetMapping("student/home")
 	public String index( Model model) {
 		model.addAttribute("students", studentService.getStudents());
-		return studentView.index(model);		// View
+		return "student/home";		// View
 //		return studentService.getStudents();
 	}
 	
-	
-	@PostMapping
-	@ResponseBody
-	public String registerNewStudent(@RequestBody Student student) {
-		studentService.addNewStudent(student);
+
+	@GetMapping("student/addStudent")
+	public String studentform(Model model) {
 		
-		return "added";
+		Student sd = new Student();
+		model.addAttribute("student", sd);
+		return "studentForm";
+	}
+
+
+	@PostMapping("student/addStudent")
+	public String registerNewStudent(@ModelAttribute("student") Student sd) {
+		studentService.addNewStudent(sd);
+		
+		return "redirect:/student/home";
 	}
 	
 	/*

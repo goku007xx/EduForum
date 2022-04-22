@@ -28,24 +28,27 @@ public class Student extends User{
 	// private String email;
 	
 	private String srn;
-	private String section;
+	// private String section;
 	private String sem;
-	private LocalDate dob;
+	// private LocalDate dob;
 	
-	@Transient			// no need input in db: no need to persist, calculated for us
-	private Integer age;
+	// @Transient			// no need input in db: no need to persist, calculated for us
+	// private Integer age;
 	
 
-	public Student(String name, Dept dept, String email, String srn, String section,
-		String sem, LocalDate dob) {
+	public Student(String name, Dept dept, String email, String srn,String sem) {
 		super(name, dept, email);
 		this.srn = srn;
-		this.section = section;
+		// this.section = section;
 		this.sem = sem;
-		this.dob = dob;
+		// this.dob = dob;
 		// this.age = age;
 	}
 
+	public Student()
+	{
+
+	}
 
 	public String getId() {
 		return this.id;
@@ -64,14 +67,14 @@ public class Student extends User{
 	}
 
 
-	public String getSection() {
-		return section;
-	}
+	// public String getSection() {
+	// 	return section;
+	// }
 
 
-	public void setSection(String section) {
-		this.section = section;
-	}
+	// public void setSection(String section) {
+	// 	this.section = section;
+	// }
 
 
 	public String getSem() {
@@ -84,29 +87,29 @@ public class Student extends User{
 	}
 
 
-	public LocalDate getDob() {
-		return dob;
-	}
+	// public LocalDate getDob() {
+	// 	return dob;
+	// }
 
 
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
+	// public void setDob(LocalDate dob) {
+	// 	this.dob = dob;
+	// }
 
 
-	public Integer getAge() {
-		return Period.between(dob,  LocalDate.now()).getYears();
-	}
+	// public Integer getAge() {
+	// 	return Period.between(dob,  LocalDate.now()).getYears();
+	// }
 
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+	// public void setAge(Integer age) {
+	// 	this.age = age;
+	// }
 
 
 	@Override
 	public String toString() {
-		return "Student [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "age=" + age + ", dob=" + dob + ", section=" + section + ", sem=" + sem + ", srn=" + srn + "]";
+		return "Student [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name +  ", sem=" + sem + ", srn=" + srn + "]";
 	}
 
 
