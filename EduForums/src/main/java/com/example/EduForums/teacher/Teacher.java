@@ -20,13 +20,15 @@ public class Teacher extends User{
 	
 	private BigDecimal salary;
 
-	public Teacher(String name, Dept dept, String email, Gender gender, BigDecimal salary) {
-		super(name, dept, email);
+	public Teacher(String name, Dept dept, String email,String password, Gender gender, BigDecimal salary) {
+		super(name, dept, email, password);
 		this.gender = gender;
 		this.salary = salary;
 	}
 
-	
+	public Teacher(){
+		
+	}
 
 	public Gender getGender() {
 		return gender;

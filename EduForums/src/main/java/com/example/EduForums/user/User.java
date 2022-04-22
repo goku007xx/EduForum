@@ -17,18 +17,33 @@ public class User {
 	protected String name;
 	protected Dept dept;
 
+	protected String password;
+
 	@Indexed(unique = true)
 	protected String email;
 
-	public User(String name, Dept dept, String email) {
+	public User(String name, Dept dept, String email, String password) {
 		this.name = name;
 		this.dept = dept;
 		this.email = email;
+		this.password = password;
 	}
 
 	
 
 	public User() {
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

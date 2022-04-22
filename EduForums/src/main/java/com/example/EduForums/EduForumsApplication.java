@@ -40,7 +40,7 @@ public class EduForumsApplication {
 		return args -> {
 			
 			String email = "anusha@gmail.com";
-			Teacher teacher = new Teacher("Anusha",Dept.CSE,email,Gender.FEMALE,BigDecimal.TEN);
+			Teacher teacher = new Teacher("Anusha",Dept.CSE,email,"iamanusha",Gender.FEMALE,BigDecimal.TEN);
 			
 			trepository.findTeacherByEmail(email).ifPresentOrElse
 			(s -> {System.out.println(s + "Teacher already exists");}

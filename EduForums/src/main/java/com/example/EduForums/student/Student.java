@@ -36,8 +36,8 @@ public class Student extends User{
 	// private Integer age;
 	
 
-	public Student(String name, Dept dept, String email, String srn,String sem) {
-		super(name, dept, email);
+	public Student(String name, Dept dept, String email,String password, String srn,String sem) {
+		super(name, dept, email, password);
 		this.srn = srn;
 		// this.section = section;
 		this.sem = sem;

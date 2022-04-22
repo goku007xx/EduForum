@@ -5,6 +5,8 @@ import java.util.List;
 // import com.example.EduForums.subject.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //import lombok.AllArgsConstructor;
 
-@RestController
+@Controller
 @RequestMapping(path="/teacher") // localhost/api/vi/student
 public class TeacherController {
 
@@ -25,11 +27,16 @@ public class TeacherController {
 	    this.teacherService = teacherService;
 	}
 	
+
 	
 	@GetMapping("")
-	public List<Teacher> fetchAllTeachers()
+	public String fetchAllTeachers(Model model)
 	{
-		return teacherService.getAllTeachers();
+		List<Teacher> teachers = teacherService.getAllTeachers();
+		model.addAttribute("teachers", teachers);
+
+
+		return "teacher/home";
 	}
 
 	// @PostMapping
@@ -37,4 +44,7 @@ public class TeacherController {
 	// public String createNewSubject(@RequestBody Subject subject) {
 	// 	return "TODO";
 	// }
+
+	
+
 }

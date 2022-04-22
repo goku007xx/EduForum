@@ -19,13 +19,13 @@ public class StudentConfig {
 		return args -> {
 			String email1 = "maram@gmail.com";
 			Student maram = new Student(
-					"Maram", Dept.CSE, email1, "cs467", "6"
+					"Maram", Dept.CSE, email1,"iammaram","cs467", "6"
 			);
 			
 
 			String email2 = "alex@gmail.com";
 			Student alex = new Student(
-				"Alex", Dept.ECE, email2, "ec467", "4");
+				"Alex", Dept.ECE, email2,"iamalex", "ec467", "4");
 			
 			
 			repository.findStudentByEmail(email1).ifPresentOrElse
