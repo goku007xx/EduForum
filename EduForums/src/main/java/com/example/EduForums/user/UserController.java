@@ -1,5 +1,6 @@
 package com.example.EduForums.user;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Optional;
 
 import com.example.EduForums.student.Student;
@@ -28,49 +29,57 @@ public class UserController {
 		// this.studentView = studentView;
 	}
 
-
-
-	@GetMapping("login")
-	public String loginUser(
-		// @PathVariable("userType") String userType,
-		Model model)
+	@GetMapping("")
+	public String roleSelect()
 	{
+		return "user/default";
+	}
+
+	// @GetMapping("")
+	// public String loginUser(
+	// 	@PathVariable("userType") String userType,
+	// 	Model model)
+	// {
 		
-		// User us = new User();
-		// model.addAttribute("user", us);
-		String userType = "student";
-		if(userType == "student"){
-			// User us = new User();
-			// model.addAttribute("user", us);
-			Student sd = new Student();
-			model.addAttribute("user", sd);		
-		}
-		else if(userType=="teacher")
-		{
-			Teacher td = new Teacher();
-			model.addAttribute("user", td);		
-		}
-		else{
-			// TODO: Admin login logic
-			;
-		}
-		return "user/loginForm";
-	}
+	// 	User us = new User();
+	// 	model.addAttribute("user", us);
+	// 	String userType = "student";
+	// 	if(userType == "student"){
+	// 		// User us = new User();
+	// 		// model.addAttribute("user", us);
+	// 		Student sd = new Student();
+	// 		model.addAttribute("student", sd);
+	// 		return "redirect:student/login";		
+	// 	}
+	// 	else if(userType=="teacher")
+	// 	{
+	// 		Teacher td = new Teacher();
+	// 		model.addAttribute("teacher", td);
+	// 		return "redirect:teacher/login";		
+	// 	}
+	// 	else{
+	// 		// TODO: Admin login logic
+	// 		;
+	// 	}
+	// 	return "user/loginForm";
 
 
-	@PostMapping("login")
-	public void loginApi(@ModelAttribute("user") User us)
-	{
-		Boolean isAllOk = userService.authenticateUser(us);
+	// }
 
-		if(isAllOk){
-			// SUCESSFUL LOGIN
-			System.out.print("YEAHH");
-		}
-		else{
-			// redirect to relogin
-			System.out.println("STUPID LOGIC");
-		}
 
-	}
+	// @PostMapping("login")
+	// public void loginApi(@ModelAttribute("user") User us)
+	// {
+	// 	Boolean isAllOk = userService.authenticateUser(us);
+
+	// 	if(isAllOk){
+	// 		// SUCESSFUL LOGIN
+	// 		System.out.print("YEAHH");
+	// 	}
+	// 	else{
+	// 		// redirect to relogin
+	// 		System.out.println("STUPID LOGIC");
+	// 	}
+
+	// }
 }

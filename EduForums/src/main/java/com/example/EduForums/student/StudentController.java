@@ -37,42 +37,31 @@ public class StudentController {
 		this.studentView = studentView;
 	}
 
-	
-	
 
+/* ADMIN SERVICES */
 
-	@GetMapping("student/home")
+	@GetMapping("admin/student")
 	public String index( Model model) {
 		model.addAttribute("students", studentService.getStudents());
-		return "student/home";		// View
+		return "student/studentList";		// View
 //		return studentService.getStudents();
 	}
-	
 
-	@GetMapping("student/addStudent")
+	@GetMapping("admin/addStudent")
 	public String studentform(Model model) {
 		
 		Student sd = new Student();
 		model.addAttribute("student", sd);
-		return "studentForm";
+		return "student/addStudentForm";
 	}
 
-
-	@PostMapping("student/addStudent")
+	@PostMapping("admin/addStudent")
 	public String registerNewStudent(@ModelAttribute("student") Student sd) {
 		studentService.addNewStudent(sd);
 		
-		return "redirect:/student/home";
+		return "redirect:/admin/student";
 	}
-	
-	/*
-	@GetMapping(value = {"/add"})
-	public String addStudent(@RequestBody Student student){
-			
-			// ADD LOGIC For view for FORM , so user can input fields
-	}
-	*/
-	
+
 	@DeleteMapping(path = "{studentId}")
 	 @ResponseBody
 	public String deleteStudent(@PathVariable("studentId") String studentId) {
@@ -95,4 +84,50 @@ public class StudentController {
 		
 		return "updated";
 	}
+
+
+
+/* STUDENT SERVICES */
+
+	
+	@GetMapping("student/login")
+	public String login(Model model)
+	{
+		Student sd = new Student();
+		model.addAttribute("student", sd);
+		return "student/studentLoginForm";
+	}
+	
+	@PostMapping("student/login")
+	public String authStudent(@ModelAttribute("student") Student sd)
+	{
+		Boolean isAllOk = studentService.authStudent(sd);
+
+		if(!isAllOk)
+		{
+			// redirect to relogin
+			System.out.println("username or pswd wrong");
+
+		}
+
+		return "redirect:home";
+	}
+
+
+	@GetMapping("student/home")
+	public String home()
+	{
+		//  Perform check if session is set 
+			// TODO: pass student obj from session 
+		return "student/home";
+	}
+	
+	
+
+	
+
+	
+	
+	
+	
 }

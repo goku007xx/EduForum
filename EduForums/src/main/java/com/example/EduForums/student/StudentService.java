@@ -76,6 +76,27 @@ public class StudentService {
 			}
 			student.setEmail(email);
 		}
+
+	}
+
+	public Boolean authStudent(Student sd)
+	{
+		System.out.println("Student trying to login");
+		Optional<Student> studentByEmail = studentRepository.findStudentByEmail(sd.getEmail());
+        if(!studentByEmail.isPresent())
+        {
+            System.out.println("NO such student");
+			return false;
+        }
+        else if(!studentByEmail.get().getPassword().equals(sd.getPassword()))
+        {
+            System.out.println(studentByEmail.get().getPassword() +" "+ sd.getPassword());
+			System.out.println("password is worng");
+			return false;
+        }
+        else{
+            return true;
+        }
 	}
 	
 }
