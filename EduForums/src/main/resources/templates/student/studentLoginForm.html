@@ -14,6 +14,9 @@
     <div class = "container">
 		<div class = "row">
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<td>
+					<span th:if="${check == 'No'}">Login Unsucessfull,Try again</span>
+				</td>
 				<h1 class = "text-center"> Student Details </h1>
 				<div class = "card-body">
 					<form th:action="@{/student/login}" th:object = "${student}" method="POST">

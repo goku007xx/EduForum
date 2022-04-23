@@ -99,7 +99,7 @@ public class StudentController {
 	}
 	
 	@PostMapping("student/login")
-	public String authStudent(@ModelAttribute("student") Student sd)
+	public String authStudent(@ModelAttribute("student") Student sd, Model model)
 	{
 		Boolean isAllOk = studentService.authStudent(sd);
 
@@ -107,7 +107,10 @@ public class StudentController {
 		{
 			// redirect to relogin
 			System.out.println("username or pswd wrong");
-
+			String result = "No";
+			model.addAttribute("check",result);
+			//return "redirect:login";
+			return "student/studentLoginForm";
 		}
 
 		return "redirect:home";
