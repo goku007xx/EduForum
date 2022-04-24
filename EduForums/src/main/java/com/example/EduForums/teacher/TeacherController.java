@@ -79,7 +79,7 @@ public class TeacherController {
 		{
 			// redirect to relogin
 			System.out.println("username or pswd wrong");
-			String result = "No";
+			String result = "username or pswd wrong";
 			model.addAttribute("check",result);
 			//return "redirect:login";
 			return "teacher/teacherLoginForm";
@@ -128,4 +128,7 @@ public class TeacherController {
 	
 		return "redirect:../";		// back to home
 	}
+
+
+	
 }

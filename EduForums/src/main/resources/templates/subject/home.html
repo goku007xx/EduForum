@@ -7,17 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <button onclick="window.location.href='logout'">Logout</button>
-    </div>
-    <h1>Teacher home</h1>
-    <h2>Login successful</h2>
+    <h1 th:text="${subject.subjectName}"></h1>
+    <!-- <h2 th:text="${teacher.name}"></h2> -->
     
-    <div >
-        <p th:text="${teacher.email}"></p>
-        <br>
-        <p th:text="${teacher.name}"></p> 
-    </div>
+    <!-- LOGIC to display all topics -->
 
     <div>
         <button onclick="window.location.href='../subject/addsubject'">Add Subject</button>
@@ -25,7 +18,6 @@
 
     <div>
         <h3>My subjects</h3>
-        
     </div>
 </body>    
 </html>

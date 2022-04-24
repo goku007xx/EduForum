@@ -1,14 +1,18 @@
 package com.example.EduForums.subject;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import com.example.EduForums.student.Student;
+import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.topic.Topic;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,8 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.example.EduForums.subject.Subject;
 //import com.example.EduForums.subject.SubjectService;
 
-@RestController
-@RequestMapping(path="/subject") // localhost/api/vi/student
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 public class SubjectController {
 	
 private final SubjectService subjectService;
@@ -54,17 +59,70 @@ private final SubjectService subjectService;
 	// 	return "new_item";
 	// }
 	
+	@GetMapping("subject/addsubject")
+	public String getSubjectFromUser(Model model , HttpSession session)
+	{
+		Teacher tdSession = (Teacher) session.getAttribute("teacher");
+		System.out.println("Session obj"+ tdSession);
+
+		// no session
+		if(tdSession==null)
+		{
+			String result = "Ma'am/Sir Login before adding a subject";
+			model.addAttribute("check", result);
+			return "teacher/teacherLoginForm";
+		}
+
+
+		model.addAttribute("teacher", tdSession);
+
+		Subject sub = new Subject();
+		model.addAttribute("subject", sub);
+
+		return "subject/addSubjectForm";
+	}
 		
 
+	@PostMapping("subject/addsubject")
+	public String addSubject(@ModelAttribute("subject") Subject sub ,Model model, HttpSession session)
+	{
+		System.out.println("without subjecTeacherField " +sub);	// without subjectTeacher
+		// return request.toString();
 
-	@PostMapping("addSub")
-	@ResponseBody
-	public void registerNewSubject(@RequestBody Subject subject){
-		subjectService.createSubject(subject);
-		System.out.println("Subject added");
+		Teacher tdSession = (Teacher)session.getAttribute("teacher");
+		if(tdSession==null)
+		{
+			String result = "Ma'am/Sir Login before adding a subject";
+			model.addAttribute("check", result);
+			return "teacher/teacherLoginForm";
+		}
+
+		else if(sub==null)
+		{
+			String result = "No subject req body passed last time";
+			model.addAttribute("check", result);
+			return "subject/addSubjectForm";
+		}
+
+		sub.setSubjectTeacher(tdSession);
+		System.out.println(" added subjecTeacherField  from session attr "+sub);
+
+
+		subjectService.createSubject(sub);
+		model.addAttribute("subject", sub);
+		model.addAttribute("teacher", tdSession);
+		return "redirect:home";
 	}
+	
 
+	@GetMapping("subject/home")
+	public String showSubject(@ModelAttribute("subject") Subject sub, HttpSession session)
+	{
+		// TODO
+		// Perform logic to check if session obj is owner or has acess before displaying
 
+		return "subject/home";
+	} 
 
 
 		/* DONE */

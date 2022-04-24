@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.EduForums.teacher.Teacher;
@@ -16,10 +17,12 @@ public class Subject {
 	@Id
 	private String subjectId;
 	private String subjectName;
+	
+	@DBRef
 	private Teacher subjectTeacher;
 	
 	// list of subs for the subject
-	
+
 	private ArrayList<Topic> subjectTopics;
 
 	private ArrayList<User> subjectAccess;
@@ -43,6 +46,8 @@ public class Subject {
 
 
 	public Subject() {
+		this.subjectTopics = new ArrayList<Topic>();
+		this.subjectAccess = new ArrayList<User>();
 	}
 	
 	
@@ -140,7 +145,6 @@ public class Subject {
 	}
 
 
-
 	// public Subject(String subjectName, Teacher subjectTeacher, String subjectCode) {
 	// 	super();
 	// 	this.subjectName = subjectName;
@@ -150,11 +154,11 @@ public class Subject {
 	// }
 	
 	@Override
-	public String toString()
-	{
-		return String.format("Subject[name='%s']", subjectName);
+	public String toString() {
+		return "Subject [subjectAccess=" + subjectAccess + ", subjectCode=" + subjectCode + ", subjectId=" + subjectId
+				+ ", subjectName=" + subjectName + ", subjectTeacher=" + subjectTeacher + ", subjectTopics="
+				+ subjectTopics + "]";
 	}
-
 
 
 }

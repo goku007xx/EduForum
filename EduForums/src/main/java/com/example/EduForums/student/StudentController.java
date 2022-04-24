@@ -22,8 +22,6 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpSession;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 // api/v1/student/1?name=Gauea,
 @Controller
@@ -124,7 +122,7 @@ public class StudentController {
 		{
 			// redirect to relogin
 			System.out.println("username or pswd wrong");
-			String result = "No";
+			String result = "username or pswd wrong";
 			model.addAttribute("check",result);
 			//return "redirect:login";
 			return "student/studentLoginForm";
