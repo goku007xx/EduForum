@@ -157,7 +157,7 @@ public class StudentController {
 		// System.out.println("model obj "+sd);
 
 		//  Perform check if session is set 
-			// TODO: pass student obj from session 
+			// TODO: pass teacher obj from session 
 		return "student/home";
 	}
 	

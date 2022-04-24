@@ -12,7 +12,11 @@
     </div>
     <h1>Student home</h1>
     <h2>Login successful</h2>
-    <div th:if="${session.containsKey('email')}" th:text="${session.email}"></div>
-
+    
+    <div >
+        <p th:text="${student.email}"></p>
+        <br>
+        <p th:text="${student.name}"></p> 
+    </div>
 </body>    
 </html>
