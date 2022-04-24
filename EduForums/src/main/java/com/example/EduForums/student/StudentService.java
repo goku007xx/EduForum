@@ -31,11 +31,6 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 	
-	
-	public Student getStudentAfterLogin(String email) {
-		// NOTE EMAIL GUARANTEED TO EXIST
-		return studentRepository.findStudentByEmail(email).get();
-	}
 
 	public void addNewStudent(Student student) {
 //		System.out.println(student);
@@ -84,6 +79,13 @@ public class StudentService {
 
 	}
 
+	
+	
+	public Student getStudentAfterLogin(String email) {
+		// NOTE EMAIL GUARANTEED TO EXIST
+		return studentRepository.findStudentByEmail(email).get();
+	}
+	
 	public Boolean authStudent(Student sd)
 	{
 		System.out.println("Student trying to login");

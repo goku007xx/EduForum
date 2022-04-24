@@ -98,6 +98,8 @@ public class StudentController {
 	{
 		Student sdSession = (Student) session.getAttribute("student");
 		System.out.println("Session obj"+ sdSession);
+		
+			// session already started
 		if(sdSession!=null)
 		{
 			model.addAttribute("student", sdSession);
@@ -108,6 +110,7 @@ public class StudentController {
 		model.addAttribute("student", sd);
 		return "student/studentLoginForm";
 	}
+	
 	
 	@PostMapping("student/login")
 	public String authStudent(@ModelAttribute("student") Student sd, Model model, HttpSession session)
@@ -168,7 +171,7 @@ public class StudentController {
 /* Invalidates this session then unbinds any objects boundto it. */
 		session.invalidate();
 	
-		return "redirect:../";
+		return "redirect:../";		// back to home
 	}
 	
 	
