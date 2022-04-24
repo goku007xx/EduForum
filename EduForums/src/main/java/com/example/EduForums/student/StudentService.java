@@ -32,17 +32,17 @@ public class StudentService {
 	}
 	
 
-	public void addNewStudent(Student student) {
+	public Student addNewStudent(Student student) {
 //		System.out.println(student);
 		
 		
-		/* BUSINESS LOGIC */
+		/* BUSINESS LOGIC   check if email is unique*/
 		Optional<Student> studentByEmail = studentRepository.findStudentByEmail(student.getEmail());
 		
 		if(studentByEmail.isPresent()) {
-			throw new IllegalStateException("email taken");
+			return null;
 		}
-		studentRepository.save(student);
+		return studentRepository.save(student);
 	}
 	
 	public void deleteStudent(String studentId) {

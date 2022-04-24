@@ -51,7 +51,7 @@ public class StudentController {
 //		return studentService.getStudents();
 	}
 
-	@GetMapping("admin/addStudent")
+	@GetMapping("admin/addstudent")
 	public String studentform(Model model) {
 		
 		Student sd = new Student();
@@ -59,11 +59,15 @@ public class StudentController {
 		return "student/addStudentForm";
 	}
 
-	@PostMapping("admin/addStudent")
-	public String registerNewStudent(@ModelAttribute("student") Student sd) {
-		studentService.addNewStudent(sd);
-		
-		return "redirect:/admin/student";
+	@PostMapping("admin/addstudent")
+	public String registerNewStudent(@ModelAttribute("student") Student sd, Model model) {
+		sd = studentService.addNewStudent(sd);
+		if(sd==null)
+		{
+			model.addAttribute("check", "Email taken");
+			return "student/addStudentForm";
+		}
+		return "redirect:student";
 	}
 
 	@DeleteMapping(path = "{studentId}")

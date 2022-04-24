@@ -16,8 +16,11 @@
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
 				<h1 class = "text-center"> Item </h1>
 				<div class = "card-body">
-					<form th:action="@{/admin/add}" th:object = "${student}" method="POST">
-						<div class ="form-group">
+                    <td>
+                        <span th:if="${check}">Login Unsucessfull,Try again</span>
+                    </td>
+					<form th:action="@{/admin/addstudent}" th:object = "${student}" method="POST">
+                        <div class ="form-group">
 							<label>Name </label>
 							<input
 							type = "text"

@@ -20,6 +20,20 @@ public class TeacherService {
 	}
 	
 	
+
+	public Teacher addNewTeacher(Teacher teacher) {
+		// 	System.out.println(teacher);
+		
+		
+		/* BUSINESS LOGIC   check if email is unique*/
+		Optional<Teacher> teacherByEmail = teacherRepository.findTeacherByEmail(teacher.getEmail());
+		
+		if(teacherByEmail.isPresent()) {
+			return null;
+		}
+		return teacherRepository.save(teacher);
+	}
+
 	public List<Teacher> getAllTeachers() {
 		List<Teacher> teas = teacherRepository.findAll();
 		for (Teacher teach : teas)

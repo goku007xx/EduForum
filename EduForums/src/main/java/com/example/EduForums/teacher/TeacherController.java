@@ -31,7 +31,7 @@ public class TeacherController {
 	}
 	
 
-	
+/* ADMIN SERVICES */	
 	@GetMapping("admin/teacher")
 	public String fetchAllTeachers(Model model)
 	{
@@ -39,7 +39,27 @@ public class TeacherController {
 		model.addAttribute("teachers", teachers);
 
 
-		return "teacher/home";
+		return "teacher/teacherList";
+	}
+
+	@GetMapping("admin/addteacher")
+	public String teacherform(Model model) {
+		
+		Teacher td = new Teacher();
+		model.addAttribute("teacher", td);
+		return "teacher/addTeacherForm";
+	}
+
+	@PostMapping("admin/addteacher")
+	public String registerNewStudent(@ModelAttribute("teacher") Teacher td, Model model) {
+		
+		td = teacherService.addNewTeacher(td);
+		if(td==null)
+		{
+			model.addAttribute("check", "Email taken");
+			return "teacher/addTeacherForm";
+		}
+		return "redirect:teacher";
 	}
 
 	// @PostMapping

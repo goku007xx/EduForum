@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 //import lombok.Data;
 
 //@Data
-@Document(collection = "Teacher")	// To say that this class's object will be a collection in Mongo
+@Document(collection = "User")	// To say that this class's object will be a collection in Mongo
 public class User {
 	
 	@Id
