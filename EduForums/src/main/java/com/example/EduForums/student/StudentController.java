@@ -158,7 +158,7 @@ public class StudentController {
 
 		//  Perform check if session is set 
 			// TODO: pass student obj from session 
-		return "redirect:login";
+		return "student/home";
 	}
 	
 	
