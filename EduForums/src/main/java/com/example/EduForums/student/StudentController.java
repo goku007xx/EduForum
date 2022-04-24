@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpSession;
+
 // api/v1/student/1?name=Gauea,
 @Controller
 // @RequestMapping(path="/student") // localhost/api/vi/student
@@ -91,15 +93,23 @@ public class StudentController {
 
 	
 	@GetMapping("student/login")
-	public String login(Model model)
+	public String login(Model model, HttpSession session)
 	{
+		Student sdSession = (Student) session.getAttribute("student");
+		System.out.println("Session obj"+ sdSession);
+		if(sdSession!=null)
+		{
+			model.addAttribute("student", sdSession);
+			return "redirect:home";
+		}
+		
 		Student sd = new Student();
 		model.addAttribute("student", sd);
 		return "student/studentLoginForm";
 	}
 	
 	@PostMapping("student/login")
-	public String authStudent(@ModelAttribute("student") Student sd, Model model)
+	public String authStudent(@ModelAttribute("student") Student sd, Model model, HttpSession session)
 	{
 		Boolean isAllOk = studentService.authStudent(sd);
 
@@ -112,14 +122,33 @@ public class StudentController {
 			//return "redirect:login";
 			return "student/studentLoginForm";
 		}
-
+		
+		sd = studentService.getStudentAfterLogin(sd.getEmail());
+		session.setAttribute("student", sd);
+		// model.addAttribute("student", sd);
 		return "redirect:home";
 	}
 
 
 	@GetMapping("student/home")
-	public String home()
+	public String home(Model model, HttpSession session)
 	{
+		
+		Student sdSession = (Student) session.getAttribute("student");
+		
+		System.out.println("Session obj "+sdSession);
+
+			// direct access without login
+		if(sdSession==null)
+		{
+			Student sd = new Student();
+			model.addAttribute("student", sd);
+			return "redirect:login";
+		}
+		
+		model.addAttribute("student", sdSession);
+		// System.out.println("model obj "+sd);
+
 		//  Perform check if session is set 
 			// TODO: pass student obj from session 
 		return "student/home";
@@ -128,7 +157,7 @@ public class StudentController {
 	
 
 	
-
+	
 	
 	
 	

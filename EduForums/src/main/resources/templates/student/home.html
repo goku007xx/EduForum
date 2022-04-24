@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Login successful</h2>
 
+    <h2>Login successful</h2>
+    <div >
+        <p th:text="${student.email}"></p>
+        <br>
+        <p th:text="${student.name}"></p> 
+    </div>
 </body>    
 </html>
