@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpSession;
 //import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping(path="/teacher") // localhost/api/vi/student
 public class TeacherController {
 
 	private final TeacherService teacherService;
@@ -33,7 +32,7 @@ public class TeacherController {
 	
 
 	
-	@GetMapping("")
+	@GetMapping("admin/teacher")
 	public String fetchAllTeachers(Model model)
 	{
 		List<Teacher> teachers = teacherService.getAllTeachers();
@@ -52,7 +51,7 @@ public class TeacherController {
 	
 /* Teacher services */
 
-	@GetMapping("student/login")
+	@GetMapping("teacher/login")
 	public String login(Model model, HttpSession session)
 	{
 			Teacher tdSession = (Teacher) session.getAttribute("teacher");
