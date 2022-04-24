@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -156,7 +157,19 @@ public class StudentController {
 	
 	
 
+	@GetMapping("student/logout")
+	public String end( HttpSession session,  SessionStatus status)
+	{
+
+		/*Mark the current handler's session processing as complete, allowing for cleanup of 
+  session attributes.*/
+		status.setComplete();
+
+/* Invalidates this session then unbinds any objects boundto it. */
+		session.invalidate();
 	
+		return "redirect:../";
+	}
 	
 	
 	
