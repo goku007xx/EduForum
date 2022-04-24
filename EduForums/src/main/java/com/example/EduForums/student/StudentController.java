@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.support.SessionStatus;
+
+import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -94,23 +97,26 @@ public class StudentController {
 
 	
 	@GetMapping("student/login")
-	public String login(Model model , HttpServletRequest request)
+	public String login(Model model, HttpSession session)
 	{
-		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
-
-		if(email != null){
-			System.out.println("Found session with email="+email);
+		Student sdSession = (Student) session.getAttribute("student");
+		System.out.println("Session obj"+ sdSession);
+		
+			// session already started
+		if(sdSession!=null)
+		{
+			model.addAttribute("student", sdSession);
 			return "redirect:home";
 		}
-
+		
 		Student sd = new Student();
 		model.addAttribute("student", sd);
 		return "student/studentLoginForm";
 	}
 	
+	
 	@PostMapping("student/login")
-	public String authStudent(@ModelAttribute("student") Student sd, Model model,HttpServletRequest request)
+	public String authStudent(@ModelAttribute("student") Student sd, Model model, HttpSession session)
 	{
 		Boolean isAllOk = studentService.authStudent(sd);
 
@@ -124,23 +130,32 @@ public class StudentController {
 			return "student/studentLoginForm";
 		}
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("email", sd.getEmail());
-		session.setMaxInactiveInterval(600);
+		sd = studentService.getStudentAfterLogin(sd.getEmail());
+		session.setAttribute("student", sd);
+		// model.addAttribute("student", sd);
 		return "redirect:home";
 	}
 
 
 	@GetMapping("student/home")
-	public String home(HttpServletRequest request)
+	public String home(Model model, HttpSession session)
 	{
-		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
 		
-		if(email != null){
-			System.out.println("Found session with email="+email);
-			return "student/home";
+		Student sdSession = (Student) session.getAttribute("student");
+		
+		System.out.println("Session obj "+sdSession);
+
+			// direct access without login
+		if(sdSession==null)
+		{
+			Student sd = new Student();
+			model.addAttribute("student", sd);
+			return "redirect:login";
 		}
+		
+		model.addAttribute("student", sdSession);
+		// System.out.println("model obj "+sd);
+
 		//  Perform check if session is set 
 			// TODO: pass student obj from session 
 		return "redirect:login";
@@ -148,8 +163,20 @@ public class StudentController {
 	
 	
 
-	
+	@GetMapping("student/logout")
+	public String end( HttpSession session,  SessionStatus status)
+	{
 
+		/*Mark the current handler's session processing as complete, allowing for cleanup of 
+  session attributes.*/
+		status.setComplete();
+
+/* Invalidates this session then unbinds any objects boundto it. */
+		session.invalidate();
+	
+		return "redirect:../";		// back to home
+	}
+	
 	
 	
 	

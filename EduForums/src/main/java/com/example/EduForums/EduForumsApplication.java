@@ -11,7 +11,7 @@ import com.example.EduForums.subject.Subject;
 import com.example.EduForums.subject.SubjectRepository;
 // import com.example.EduForums.subject.Subject;
 // import com.example.EduForums.subject.SubjectRepository;
-import com.example.EduForums.teacher.Gender;
+// import com.example.EduForums.teacher.Gender;
 //import com.example.EduForums.teacher.MongoTemplate;
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.teacher.TeacherRepository;
@@ -39,8 +39,9 @@ public class EduForumsApplication {
 	CommandLineRunner runner(TeacherRepository trepository, SubjectRepository srepository,  MongoTemplate mongoTemplate) {
 		return args -> {
 			
-			String email = "anusha@gmail.com";
-			Teacher teacher = new Teacher("Anusha",Dept.CSE,email,"iamanusha",Gender.FEMALE,BigDecimal.TEN);
+			String email = "karim@gmail.com";
+			
+			Teacher teacher = new Teacher("Karim", Dept.CSE, "karim@gmail.com", "iamkarim", "cst123", "4");
 			
 			trepository.findTeacherByEmail(email).ifPresentOrElse
 			(s -> {System.out.println(s + "Teacher already exists");}
@@ -53,16 +54,16 @@ public class EduForumsApplication {
 				}
 			);
 
-			String subjectCode = "CCXY1";
-			Subject subject = new Subject("CC",teacher,subjectCode);
+			// String subjectCode = "CCXY1";
+			// Subject subject = new Subject("CC",teacher,subjectCode);
 			
-			srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
-			(s -> {System.out.println(s + "Subject already exists");}
-			, 
-			()-> {System.out.println("Inserting subject now" + subject);
-				  srepository.insert(subject);
-				 }
-			);
+			// srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
+			// (s -> {System.out.println(s + "Subject already exists");}
+			// , 
+			// ()-> {System.out.println("Inserting subject now" + subject);
+			// 	  srepository.insert(subject);
+			// 	 }
+			// );
 
 			// Subject subject = new Subject("CC",teacher,"CCXYZ");
 			// srepository.insert(subject);

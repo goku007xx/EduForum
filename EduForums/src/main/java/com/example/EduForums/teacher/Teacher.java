@@ -16,41 +16,42 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Teacher extends User{
 	
 	
-	private Gender gender;
+	private String trn;
 	
-	private BigDecimal salary;
+	private String sem;
 
-	public Teacher(String name, Dept dept, String email,String password, Gender gender, BigDecimal salary) {
+	public Teacher(String name, Dept dept, String email,String password,String trn, String sem) {
 		super(name, dept, email, password);
-		this.gender = gender;
-		this.salary = salary;
+		
+		this.trn = trn;
+		this.sem = sem;
 	}
 
 	public Teacher(){
 		
 	}
 
-	public Gender getGender() {
-		return gender;
+
+	public String getTrn() {
+		return trn;
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setTrn(String trn) {
+		this.trn = trn;
 	}
 
-	public BigDecimal getSalary() {
-		return salary;
+	public String getSem() {
+		return sem;
 	}
 
-	public void setSalary(BigDecimal salary) {
-		this.salary = salary;
+	public void setSem(String sem) {
+		this.sem = sem;
 	}
 
 	@Override
 	public String toString() {
-		return "Teacher [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "gender=" + gender + ", salary=" + salary + "]";
+		return "Teacher [Dept=" + dept + ", email=" + email + ", id=" + id + ", name=" + name + "sem=" + sem + ", trn=" + trn + "]" ;
 	}
-	
-	
+
 	
 }

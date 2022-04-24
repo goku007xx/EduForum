@@ -31,7 +31,7 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 	
-	
+
 	public void addNewStudent(Student student) {
 //		System.out.println(student);
 		
@@ -79,13 +79,21 @@ public class StudentService {
 
 	}
 
+	
+	
+	public Student getStudentAfterLogin(String email) {
+		// NOTE EMAIL GUARANTEED TO EXIST
+		return studentRepository.findStudentByEmail(email).get();
+	}
+	
 	public Boolean authStudent(Student sd)
 	{
 		System.out.println("Student trying to login");
+		System.out.println("req body"+ sd.getEmail());
 		Optional<Student> studentByEmail = studentRepository.findStudentByEmail(sd.getEmail());
         if(!studentByEmail.isPresent())
         {
-            System.out.println("NO such student");
+            System.out.println("email wrong: NO such student");
 			return false;
         }
         else if(!studentByEmail.get().getPassword().equals(sd.getPassword()))

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        <button onclick="window.location.href='logout'">Logout</button>
+    </div>
+    <h1>Student home</h1>
     <h2>Login successful</h2>
     <div th:if="${session.containsKey('email')}" th:text="${session.email}"></div>
 
