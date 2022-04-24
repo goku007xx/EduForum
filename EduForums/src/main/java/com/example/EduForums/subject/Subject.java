@@ -22,9 +22,9 @@ public class Subject {
 	private Teacher subjectTeacher; 
 	// list of subs for the subject
 
-	private List<Topic> subjectTopics;
+	private ArrayList<Topic> subjectTopics;
 
-	private List<User> subjectAccess;
+	private ArrayList<User> subjectAccess;
 	
 
 	// @Indexed(unique = true)
@@ -37,12 +37,16 @@ public class Subject {
 		this.subjectName = subjectName;
 		this.subjectTeacher = subjectTeacher;
 		this.subjectCode = subjectCode;
+		this.subjectTopics = new ArrayList<Topic>();
+		this.subjectAccess = new ArrayList<User>();
 	}
 
 
 
 
 	public Subject() {
+		this.subjectTopics = new ArrayList<Topic>();
+		this.subjectAccess = new ArrayList<User>();
 	}
 	
 	
@@ -97,17 +101,9 @@ public class Subject {
 
 
 
-	public List<Topic> getSubjectTopics() {
-		return subjectTopics;
-	}
 
 
 
-
-
-	public void setSubjectTopics(List<Topic> subjectTopics) {
-		this.subjectTopics = subjectTopics;
-	}
 
 
 
@@ -127,17 +123,9 @@ public class Subject {
 
 
 	
-	public List<User> getSubjectAccess() {
-		return subjectAccess;
-	}
 
 
 
-
-
-	public void setSubjectAccess(List<User> subjectAccess) {
-		this.subjectAccess = subjectAccess;
-	}
 
 
 	// public Subject(String subjectName, Teacher subjectTeacher, String subjectCode) {
@@ -148,6 +136,34 @@ public class Subject {
 	// 	this.subjectTopics = new ArrayList<Topic>();
 	// }
 	
+	public ArrayList<Topic> getSubjectTopics() {
+		return subjectTopics;
+	}
+
+
+
+
+	public void setSubjectTopics(ArrayList<Topic> subjectTopics) {
+		this.subjectTopics = subjectTopics;
+	}
+
+
+
+
+	public ArrayList<User> getSubjectAccess() {
+		return subjectAccess;
+	}
+
+
+
+
+	public void setSubjectAccess(ArrayList<User> subjectAccess) {
+		this.subjectAccess = subjectAccess;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Subject [subjectAccess=" + subjectAccess + ", subjectCode=" + subjectCode + ", subjectId=" + subjectId

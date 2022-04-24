@@ -81,7 +81,7 @@ public class SubjectService {
 			Topic topic = topicService.createTopic(topicName, belongsToSubject, owner);
 			if(topic!=null)
 			{
-				List<Topic> tlist = subject.getSubjectTopics();
+				ArrayList<Topic> tlist = subject.getSubjectTopics();
 				tlist.add(topic);
 
 				// FOr DB
@@ -131,7 +131,7 @@ public class SubjectService {
 							
 		if(! (student==null))
 		{
-			List<User> slist = subject.getSubjectAccess();
+			ArrayList<User> slist = subject.getSubjectAccess();
 			slist.add(student);
 
 			
@@ -178,7 +178,7 @@ public class SubjectService {
 			
 		if(teacher!=null )
 		{
-			List<User> slist = subject.getSubjectAccess();
+			ArrayList<User> slist = subject.getSubjectAccess();
 			slist.add(teacher);
 
 			// FOr DB
