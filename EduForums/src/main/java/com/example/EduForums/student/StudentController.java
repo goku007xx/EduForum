@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 // api/v1/student/1?name=Gauea,
 @Controller
 // @RequestMapping(path="/student") // localhost/api/vi/student
@@ -91,15 +94,23 @@ public class StudentController {
 
 	
 	@GetMapping("student/login")
-	public String login(Model model)
+	public String login(Model model , HttpServletRequest request)
 	{
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+
+		if(email != null){
+			System.out.println("Found session with email="+email);
+			return "redirect:home";
+		}
+
 		Student sd = new Student();
 		model.addAttribute("student", sd);
 		return "student/studentLoginForm";
 	}
 	
 	@PostMapping("student/login")
-	public String authStudent(@ModelAttribute("student") Student sd, Model model)
+	public String authStudent(@ModelAttribute("student") Student sd, Model model,HttpServletRequest request)
 	{
 		Boolean isAllOk = studentService.authStudent(sd);
 
@@ -112,17 +123,27 @@ public class StudentController {
 			//return "redirect:login";
 			return "student/studentLoginForm";
 		}
-
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("email", sd.getEmail());
+		session.setMaxInactiveInterval(600);
 		return "redirect:home";
 	}
 
 
 	@GetMapping("student/home")
-	public String home()
+	public String home(HttpServletRequest request)
 	{
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		
+		if(email != null){
+			System.out.println("Found session with email="+email);
+			return "student/home";
+		}
 		//  Perform check if session is set 
 			// TODO: pass student obj from session 
-		return "student/home";
+		return "redirect:login";
 	}
 	
 	
