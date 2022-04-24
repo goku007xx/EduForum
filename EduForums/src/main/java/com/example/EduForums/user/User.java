@@ -19,7 +19,7 @@ public class User {
 
 	protected String password;
 
-	@Indexed(unique = true)
+	// @Indexed(unique = true)
 	protected String email;
 
 	public User(String name, Dept dept, String email, String password) {

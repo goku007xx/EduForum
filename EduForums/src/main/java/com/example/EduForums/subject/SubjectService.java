@@ -81,7 +81,7 @@ public class SubjectService {
 			Topic topic = topicService.createTopic(topicName, belongsToSubject, owner);
 			if(topic!=null)
 			{
-				ArrayList<Topic> tlist = subject.getSubjectTopics();
+				List<Topic> tlist = subject.getSubjectTopics();
 				tlist.add(topic);
 
 				// FOr DB
@@ -131,7 +131,7 @@ public class SubjectService {
 							
 		if(! (student==null))
 		{
-			ArrayList<User> slist = subject.getSubjectAccess();
+			List<User> slist = subject.getSubjectAccess();
 			slist.add(student);
 
 			
@@ -178,7 +178,7 @@ public class SubjectService {
 			
 		if(teacher!=null )
 		{
-			ArrayList<User> slist = subject.getSubjectAccess();
+			List<User> slist = subject.getSubjectAccess();
 			slist.add(teacher);
 
 			// FOr DB
@@ -196,7 +196,7 @@ public class SubjectService {
 
 	
 	// Display topic and provide option to close for owner: using session
-	public ArrayList<Topic> getTopicsForSubject(String subjectCode) {
+	public List<Topic> getTopicsForSubject(String subjectCode) {
 		Subject subject = subjectRepository.findById(subjectCode)
 					.orElseThrow(
 								()-> new IllegalStateException("subject with subjectCOde "+ subjectCode + " doesn't exist")
@@ -216,7 +216,7 @@ public class SubjectService {
 								()-> new IllegalStateException("subject with subjectCOde "+ subjectCode + " doesn't exist")
 							);
 		
-		ArrayList<User> list = subject.getSubjectAccess();
+		List<User> list = subject.getSubjectAccess();
 
 		for(User user: list){
 			// System.out.println(user.getEmail());

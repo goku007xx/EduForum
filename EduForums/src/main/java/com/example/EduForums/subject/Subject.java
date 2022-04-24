@@ -18,17 +18,16 @@ public class Subject {
 	private String subjectId;
 	private String subjectName;
 	
-	@DBRef
-	private Teacher subjectTeacher;
-	
+	// @Indexed(unique = false)
+	private Teacher subjectTeacher; 
 	// list of subs for the subject
 
-	private ArrayList<Topic> subjectTopics;
+	private List<Topic> subjectTopics;
 
-	private ArrayList<User> subjectAccess;
+	private List<User> subjectAccess;
 	
 
-	@Indexed(unique = true)
+	// @Indexed(unique = true)
 	private String subjectCode;
 	
 	
@@ -37,8 +36,6 @@ public class Subject {
 		// this.subjectId = subjectId;
 		this.subjectName = subjectName;
 		this.subjectTeacher = subjectTeacher;
-		this.subjectTopics = new ArrayList<Topic>();
-		this.subjectAccess = new ArrayList<User>();
 		this.subjectCode = subjectCode;
 	}
 
@@ -46,8 +43,6 @@ public class Subject {
 
 
 	public Subject() {
-		this.subjectTopics = new ArrayList<Topic>();
-		this.subjectAccess = new ArrayList<User>();
 	}
 	
 	
@@ -102,7 +97,7 @@ public class Subject {
 
 
 
-	public ArrayList<Topic> getSubjectTopics() {
+	public List<Topic> getSubjectTopics() {
 		return subjectTopics;
 	}
 
@@ -110,7 +105,7 @@ public class Subject {
 
 
 
-	public void setSubjectTopics(ArrayList<Topic> subjectTopics) {
+	public void setSubjectTopics(List<Topic> subjectTopics) {
 		this.subjectTopics = subjectTopics;
 	}
 
@@ -132,7 +127,7 @@ public class Subject {
 
 
 	
-	public ArrayList<User> getSubjectAccess() {
+	public List<User> getSubjectAccess() {
 		return subjectAccess;
 	}
 
@@ -140,7 +135,7 @@ public class Subject {
 
 
 
-	public void setSubjectAccess(ArrayList<User> subjectAccess) {
+	public void setSubjectAccess(List<User> subjectAccess) {
 		this.subjectAccess = subjectAccess;
 	}
 

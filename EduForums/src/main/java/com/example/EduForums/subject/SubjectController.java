@@ -74,7 +74,7 @@ private final SubjectService subjectService;
 		}
 
 
-		model.addAttribute("teacher", tdSession);
+		// model.addAttribute("teacher", tdSession);
 
 		Subject sub = new Subject();
 		model.addAttribute("subject", sub);
@@ -90,19 +90,20 @@ private final SubjectService subjectService;
 		// return request.toString();
 
 		Teacher tdSession = (Teacher)session.getAttribute("teacher");
+		
 		if(tdSession==null)
 		{
 			String result = "Ma'am/Sir Login before adding a subject";
 			model.addAttribute("check", result);
 			return "teacher/teacherLoginForm";
 		}
-
 		else if(sub==null)
 		{
 			String result = "No subject req body passed last time";
 			model.addAttribute("check", result);
 			return "subject/addSubjectForm";
 		}
+		System.out.println(tdSession.getId());
 
 		sub.setSubjectTeacher(tdSession);
 		System.out.println(" added subjecTeacherField  from session attr "+sub);

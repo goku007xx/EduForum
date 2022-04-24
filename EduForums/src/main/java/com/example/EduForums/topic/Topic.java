@@ -7,7 +7,10 @@ import com.example.EduForums.subject.Subject;
 import com.example.EduForums.user.User;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+
+@Document(collection = "Topic")
 public class Topic {
 	@Id
 	private String topicId;
