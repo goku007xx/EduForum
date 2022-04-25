@@ -18,6 +18,15 @@ public class TopicService {
 		this.topicRepository = topicRepository;
 	}
 
+    public List<Topic> getAllTopics() {
+		List<Topic> teas = topicRepository.findAll();
+		for (Topic teach : teas)
+        {
+			System.out.println(teach);
+        }
+		return topicRepository.findAll();
+	}
+
     
     public Topic createTopic(String topicName, Subject belongsToSubject, User owner)
     {

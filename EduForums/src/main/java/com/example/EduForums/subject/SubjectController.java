@@ -1,11 +1,13 @@
 package com.example.EduForums.subject;
 
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.EduForums.student.Student;
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.topic.Topic;
+import com.example.EduForums.topic.TopicService;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,13 @@ import jakarta.servlet.http.HttpSession;
 public class SubjectController {
 	
 private final SubjectService subjectService;
+
+TopicService topicService;
 	
 	@Autowired
-	public SubjectController(SubjectService subjectService) {
+	public SubjectController(SubjectService subjectService,TopicService topicService) {
 	    this.subjectService = subjectService;
+		this.topicService = topicService;
 	}
 	
 	
@@ -118,13 +123,27 @@ private final SubjectService subjectService;
 	
 
 	@GetMapping("subject/home")
-	public String showSubject(@ModelAttribute("subject") Subject sub, HttpSession session)
+	public String showSubject(@ModelAttribute("subject") Subject sub,Model model, HttpSession session)
 	{
 		// TODO
 		// Perform logic to check if session obj is owner or has acess before displaying
-		List<Subject> list = subjectService.getAllSubjects();
+		Teacher tdSession = (Teacher) session.getAttribute("teacher");
+
+		Student sdSession = (Student) session.getAttribute("student");
+
+		List<Topic> topics;
+
 		
 
+
+		if(tdSession.getEmail().equals(sub.getSubjectTeacher().getEmail()) || (sub.getSubjectAccess().contains(sdSession.getEmail())) ){
+			 topics = sub.getSubjectTopics();
+		}
+		else{
+			 topics = new ArrayList<Topic>();
+		}
+
+		model.addAttribute("topics",topics);
 
 		return "subject/home";
 	} 

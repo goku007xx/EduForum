@@ -17,7 +17,7 @@
 				<td>
 					<span th:if="${check == 'No'}">Login Unsucessfull,Try again</span>
 				</td>
-				<h1 class = "text-center"> Student Details </h1>
+				<h1 class = "text-center"> Student login </h1>
 				<div class = "card-body">
 					<form th:action="@{/student/login}" th:object = "${student}" method="POST">
 						
