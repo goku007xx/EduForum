@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 //
 //import com.example.EduForums.subject.Subject;
-//import com.example.EduForums.subject.SubjectService;
+import com.example.EduForums.subject.SubjectService;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -121,6 +122,9 @@ private final SubjectService subjectService;
 	{
 		// TODO
 		// Perform logic to check if session obj is owner or has acess before displaying
+		List<Subject> list = subjectService.getAllSubjects();
+		
+
 
 		return "subject/home";
 	} 

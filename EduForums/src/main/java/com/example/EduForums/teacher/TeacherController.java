@@ -1,6 +1,10 @@
 package com.example.EduForums.teacher;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.example.EduForums.subject.Subject;
+import com.example.EduForums.subject.SubjectService;
 
 // import com.example.EduForums.subject.Subject;
 
@@ -24,10 +28,12 @@ import jakarta.servlet.http.HttpSession;
 public class TeacherController {
 
 	private final TeacherService teacherService;
+	SubjectService subjectService;
 	
 	@Autowired
-	public TeacherController(TeacherService teacherService) {
+	public TeacherController(TeacherService teacherService,SubjectService subjectService) {
 	    this.teacherService = teacherService;
+		this.subjectService = subjectService;
 	}
 	
 
@@ -36,8 +42,9 @@ public class TeacherController {
 	public String fetchAllTeachers(Model model)
 	{
 		List<Teacher> teachers = teacherService.getAllTeachers();
+		
 		model.addAttribute("teachers", teachers);
-
+		
 
 		return "teacher/home";
 	}
@@ -96,18 +103,35 @@ public class TeacherController {
 	{
 		
 		Teacher tdSession = (Teacher) session.getAttribute("teacher");
+
+		List<Subject> subjects = subjectService.getAllSubjects();
+		List<Subject> filterdedSubjects=new ArrayList<Subject>();
+
+		for (int i=0;i<subjects.size();i++){
+			if(tdSession.getEmail().equals(subjects.get(i).getSubjectTeacher().getEmail())){
+				System.out.println("this is true they are same");
+				filterdedSubjects.add(subjects.get(i));
+				System.out.println("here is the new filter list"+filterdedSubjects);
+				
+			}
+
+		}
+		
+		
 		
 		System.out.println("Session obj "+tdSession);
+		System.out.println("subjects are"+filterdedSubjects);
 
 			// direct access without login
 		if(tdSession==null)
 		{
 			Teacher td = new Teacher();
-			model.addAttribute("student", td);
+			model.addAttribute("teacher", td);
 			return "redirect:login";
 		}
 		
 		model.addAttribute("teacher", tdSession);
+		model.addAttribute("subjects", filterdedSubjects);
 		// System.out.println("model obj "+sd);
 
 		//  Perform check if session is set 
