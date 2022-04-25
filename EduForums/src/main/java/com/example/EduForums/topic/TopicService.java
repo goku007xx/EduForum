@@ -24,6 +24,10 @@ public class TopicService {
         return new Topic(topicName, belongsToSubject, owner);
     }
 
+    public void saveTopic(Topic topic)
+    {
+        topicRepository.save(topic);
+    }
 
     public void closeTopic(String email,Topic topic){
         if(topic.getOwner().getEmail()==email)

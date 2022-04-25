@@ -40,6 +40,12 @@ public class SubjectService {
 		return subjectRepository.findAll();
 	}
 
+	public Subject getSubject(String subjectCode)
+	{
+		Optional<Subject> subject = subjectRepository.findSubjectBySubjectCode(subjectCode);
+		return subject.get();
+	}
+
 
 	//  pass sub obj
 	public void createSubject(Subject subject) {
@@ -50,6 +56,10 @@ public class SubjectService {
 			throw new IllegalStateException("subject code aldready taken!");
 		}
 
+		subjectRepository.save(subject);
+	}
+
+	public void savesubject(Subject subject) {
 		subjectRepository.save(subject);
 	}
 

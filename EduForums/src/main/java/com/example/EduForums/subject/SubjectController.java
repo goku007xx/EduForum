@@ -1,11 +1,14 @@
 package com.example.EduForums.subject;
 
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.EduForums.student.Student;
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.topic.Topic;
+import com.example.EduForums.topic.TopicRepository;
+import com.example.EduForums.topic.TopicService;
 import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +28,19 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.example.EduForums.subject.Subject;
 //import com.example.EduForums.subject.SubjectService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SubjectController {
-	
-private final SubjectService subjectService;
-	
+
+	private final SubjectService subjectService;
+	private final TopicService topicService;
+
 	@Autowired
-	public SubjectController(SubjectService subjectService) {
+	public SubjectController(SubjectService subjectService , TopicService topicService) {
 	    this.subjectService = subjectService;
+		this.topicService = topicService;
 	}
 	
 	
@@ -145,6 +151,79 @@ private final SubjectService subjectService;
 			System.out.println("INVALID PATH , please specify user type");
 		}
 	}
+
+	@GetMapping("subject/addtopic")
+	public String addtopic(Model model , HttpSession session)
+	{
+		User tdSession = (User) session.getAttribute("teacher");
+		System.out.println("Session obj"+ tdSession);
+
+		// no session
+		if(tdSession==null)
+		{
+			String result = "Ma'am/Sir Login before adding a topic for this subject";
+			model.addAttribute("check", result);
+			return "teacher/teacherLoginForm";
+		}
+
+
+		// model.addAttribute("teacher", tdSession);
+
+		Topic topic = new Topic();
+		model.addAttribute("topic", topic);
+		return "subject/addTopicForm";
+	}
+
+	@PostMapping("subject/addtopic")
+	public String addtopic(@ModelAttribute("topic") Topic topic ,Model model, HttpSession session,HttpServletRequest request)
+	{
+		//System.out.println("without subjecTeacherField " +sub);	// without subjectTeacher
+		// return request.toString();
+
+		User tdSession = (User)session.getAttribute("teacher");
+		
+		if(tdSession==null)
+		{
+			String result = "Ma'am/Sir Login before adding a subject";
+			model.addAttribute("check", result);
+			return "teacher/teacherLoginForm";
+		}
+		else if(topic==null)
+		{
+			String result = "No topic req body passed last time";
+			model.addAttribute("check", result);
+			return "subject/addTopicForm";
+		}
+		//System.out.println(tdSession.getId());
+		String subjectCode = request.getParameter("subjectCode");
+		System.out.println("SubjectCode="+subjectCode);
+		//sub.setSubjectTeacher(tdSession);
+		Subject sub = subjectService.getSubject(subjectCode);
+
+		ArrayList<Topic> topic_of_sub = sub.getSubjectTopics();
+		topic_of_sub.add(topic);
+		sub.setSubjectTopics(topic_of_sub);
+
+		subjectService.savesubject(sub);
+
+		//topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
+		topicService.saveTopic(topic);
+		//topic.getBelongsToSubject().setSubjectTopics(topic_of_sub);
+		//subjectService.savesubject(topic.getBelongsToSubject());
+
+		
+		//topicService.saveTopic(topic);
+		// subjectService.savesubject(sub);
+		System.out.println(" added belongstosub Field "+topic);
+
+		//subjectService.createSubject(sub);
+		//model.addAttribute("subject", sub);
+		//model.addAttribute("teacher", tdSession);
+		return "redirect:home";
+	}
+
+
+		// model.addAttri
 
 
 	// @PostMapping(path = "addTopic/{subjectCode}")

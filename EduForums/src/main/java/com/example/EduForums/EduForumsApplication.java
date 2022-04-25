@@ -1,6 +1,7 @@
 package com.example.EduForums;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,7 @@ import com.example.EduForums.subject.SubjectRepository;
 import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.teacher.TeacherRepository;
 import com.example.EduForums.user.Dept;
+import com.example.EduForums.user.User;
 
 //import java.math.BigDecimal;
 // import java.util.List;
@@ -51,7 +53,24 @@ public class EduForumsApplication {
 
 				 System.out.println(teacher);
 				 System.out.println("AAAA");
-				}
+				});
+
+			String subjectCode = "123456";
+			Subject subject = new Subject("CC",teacher,subjectCode);
+			ArrayList <User> users = subject.getSubjectAccess();
+			users.add(teacher);
+
+			subject.setSubjectAccess(users);
+			//srepository.save(subject);
+
+			srepository.findSubjectBySubjectCode(subjectCode).ifPresentOrElse
+			(s -> {System.out.println(s + "Subject already exists");}
+			, 
+			()-> {System.out.println("Inserting subject now" + subject);
+				  srepository.insert(subject);
+				 }
+
+			
 			);
 
 			// String subjectCode = "CCXY1";

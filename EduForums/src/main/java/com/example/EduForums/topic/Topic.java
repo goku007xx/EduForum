@@ -26,6 +26,7 @@ public class Topic {
 		this.belongsToSubject = belongsToSubject;
 		this.owner = owner;
 		this.status = TopicStatus.ONGOING;
+		this.topicPosts = new ArrayList<Post>();
 	}
 
 	public Topic(){
