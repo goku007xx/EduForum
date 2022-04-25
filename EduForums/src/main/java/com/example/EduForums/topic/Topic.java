@@ -7,6 +7,7 @@ import com.example.EduForums.subject.Subject;
 import com.example.EduForums.user.User;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -15,6 +16,8 @@ public class Topic {
 	@Id
 	private String topicId;
 	private String topicName;
+
+	@DBRef
 	private Subject belongsToSubject;
 	private User owner; 
 	private TopicStatus status;

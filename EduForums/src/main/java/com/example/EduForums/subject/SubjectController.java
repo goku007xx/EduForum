@@ -200,14 +200,16 @@ public class SubjectController {
 		//sub.setSubjectTeacher(tdSession);
 		Subject sub = subjectService.getSubject(subjectCode);
 
+		topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
+		topicService.saveTopic(topic);
+
 		ArrayList<Topic> topic_of_sub = sub.getSubjectTopics();
 		topic_of_sub.add(topic);
 		sub.setSubjectTopics(topic_of_sub);
 
 		subjectService.savesubject(sub);
 
-		//topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
-		topicService.saveTopic(topic);
+		
 		//topic.getBelongsToSubject().setSubjectTopics(topic_of_sub);
 		//subjectService.savesubject(topic.getBelongsToSubject());
 
