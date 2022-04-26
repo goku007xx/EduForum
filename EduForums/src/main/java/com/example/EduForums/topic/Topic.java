@@ -25,6 +25,8 @@ public class Topic {
 	private User owner; 
 	
 	private TopicStatus status;
+
+	@DBRef
 	private ArrayList<Post> topicPosts;
 	
 	public Topic( String topicName, Subject belongsToSubject, User owner) {
@@ -36,8 +38,8 @@ public class Topic {
 		this.topicPosts = new ArrayList<Post>();
 	}
 
-	public Topic(){
-
+	public Topic() {
+		this.topicPosts = new ArrayList<Post>();
 	}
 
 	public String getTopicId() {
@@ -87,8 +89,5 @@ public class Topic {
 	public void setTopicPosts(ArrayList<Post> topicPosts) {
 		this.topicPosts = topicPosts;
 	}
-
-	
-
 	
 }

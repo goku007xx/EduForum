@@ -28,6 +28,11 @@ public class Post {
         this.upvotes = 0;
     }
 
+    public Post(){
+        this.downvotes = 0;
+        this.upvotes = 0;
+    }
+
     public void upv() {
         this.upvotes++;   
     }

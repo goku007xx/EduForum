@@ -18,6 +18,9 @@ public class TopicService {
 		this.topicRepository = topicRepository;
 	}
 
+    public Topic getTopicbyid(String topicId) {
+        return topicRepository.findById(topicId).get();
+    }
     
     public Topic createTopic(String topicName, Subject belongsToSubject, User owner)
     {

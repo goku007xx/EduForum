@@ -19,7 +19,7 @@
         <!-- LOGIC to display all topics -->
         <div>
             <ul>
-                <li><a th:text="${topic.topicName}" th:href="@{{topicId}(topicId=${topic.topicId})}"></a></li>
+                <li><a th:text="${topic.topicName}" th:href="@{../topic/{topicId}(topicId=${topic.topicId})}"></a></li>
             </ul>
         </div>
     </div>
