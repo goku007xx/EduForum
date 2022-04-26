@@ -15,11 +15,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Topic {
 	@Id
 	private String topicId;
+
 	private String topicName;
 
 	@DBRef
 	private Subject belongsToSubject;
+
+	@DBRef
 	private User owner; 
+	
 	private TopicStatus status;
 	private ArrayList<Post> topicPosts;
 	
