@@ -116,18 +116,19 @@ public class SubjectController {
 
 
 		subjectService.createSubject(sub);
-		model.addAttribute("subject", sub);
+		// model.addAttribute("subject", sub);
 		model.addAttribute("teacher", tdSession);
-		return "redirect:home";
+		return "redirect:"+sub.getSubjectCode();
 	}
 	
 
-	@GetMapping("subject/home")
-	public String showSubject(@ModelAttribute("subject") Subject sub, HttpSession session)
+	@GetMapping("subject/{subjectCode}")
+	public String showSubject(	@PathVariable("subjectCode") String subjectCode, Model model, HttpSession session)
 	{
 		// TODO
 		// Perform logic to check if session obj is owner or has acess before displaying
-
+		Subject subject = subjectService.getSubject(subjectCode);
+		model.addAttribute("subject", subject);
 		return "subject/home";
 	} 
 

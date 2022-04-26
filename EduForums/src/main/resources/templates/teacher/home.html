@@ -25,7 +25,12 @@
 
     <div>
         <h3>My subjects</h3>
-        
+        <div th:each="s: ${subs}">
+            <ul>
+                <li><a th:href="@{../../../subject/{subjectCode}(subjectCode=${s.subjectCode})}" th:text="${s.subjectName}"></a></li>
+                <li th:text="${s.subjectCode}"></li>
+            </ul>
+        </div>
     </div>
 </body>    
 </html>
