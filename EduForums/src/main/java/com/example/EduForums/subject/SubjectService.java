@@ -63,6 +63,11 @@ public class SubjectService {
 		subjectRepository.save(subject);
 	}
 
+	public List<Subject> getSubjectsByTeacher(Teacher teacher) {
+		//subjectRepository.fin
+		return subjectRepository.findSubjectBySubjectTeacher(teacher);
+	}
+
 
 
 

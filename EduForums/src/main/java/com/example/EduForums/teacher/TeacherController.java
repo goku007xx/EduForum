@@ -1,6 +1,10 @@
 package com.example.EduForums.teacher;
 
 import java.util.List;
+import java.util.Optional;
+
+import com.example.EduForums.subject.Subject;
+import com.example.EduForums.subject.SubjectService;
 
 // import com.example.EduForums.subject.Subject;
 
@@ -24,10 +28,12 @@ import jakarta.servlet.http.HttpSession;
 public class TeacherController {
 
 	private final TeacherService teacherService;
+	private final SubjectService subjectService;
 	
 	@Autowired
-	public TeacherController(TeacherService teacherService) {
+	public TeacherController(TeacherService teacherService,SubjectService subjectService) {
 	    this.teacherService = teacherService;
+		this.subjectService = subjectService;
 	}
 	
 
@@ -127,7 +133,13 @@ public class TeacherController {
 			return "redirect:login";
 		}
 		
+		System.out.println("Came here");
+		List<Subject> subs = subjectService.getSubjectsByTeacher(tdSession);
+		System.out.println(subs);
+		System.out.println("Printed here");
+
 		model.addAttribute("teacher", tdSession);
+		model.addAttribute("subs", subs);
 		// System.out.println("model obj "+sd);
 
 		//  Perform check if session is set 
