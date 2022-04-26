@@ -129,6 +129,10 @@ public class SubjectController {
 		// Perform logic to check if session obj is owner or has acess before displaying
 		Subject subject = subjectService.getSubject(subjectCode);
 		model.addAttribute("subject", subject);
+
+		List<Topic> topics_list = topicService.getTopicsBySubject(subject);
+		model.addAttribute("topics", topics_list);
+
 		return "subject/home";
 	} 
 

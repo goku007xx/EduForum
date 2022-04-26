@@ -36,5 +36,9 @@ public class TopicService {
             throw new IllegalStateException("No access form email provided");
     }
 
+    public List<Topic> getTopicsBySubject(Subject subject){
+        return topicRepository.findTopicByBelongsToSubject(subject);
+    }
+
 }
 

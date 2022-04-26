@@ -80,7 +80,7 @@ public class TeacherController {
 	@GetMapping("teacher/login")
 	public String login(Model model, HttpSession session)
 	{
-			Teacher tdSession = (Teacher) session.getAttribute("teacher");
+		Teacher tdSession = (Teacher) session.getAttribute("teacher");
 		System.out.println("Session obj"+ tdSession);
 		
 			// session aldready started
