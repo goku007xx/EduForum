@@ -131,27 +131,28 @@ public class SubjectController {
 		return "subject/home";
 	} 
 
+		// NOT PROPER
+	// 	/* DONE */
+	// @PutMapping(path="addAccess/{userType}/{subjectCode}")
+	// @ResponseBody
+	// public void addUser(
+	// 	@PathVariable("userType") String userType,
+	// 	@PathVariable("subjectCode") String subjectCode,
+	// 	@RequestParam(required = true) String email
+	// 	)
+	// {
+	// 	System.out.println(userType+" "+subjectCode);
+	// 	if(userType.equals("Student"))
+	// 		subjectService.addStudentAccess(subjectCode, email);
+	// 	else if(userType.equals("Teacher"))
+	// 		subjectService.addTeacherAccess(subjectCode, email);
+	// 	else
+	// 	{
+	// 		System.out.println("INVALID PATH , please specify user type");
+	// 	}
+	// }
 
-		/* DONE */
-	@PutMapping(path="addAccess/{userType}/{subjectCode}")
-	@ResponseBody
-	public void addUser(
-		@PathVariable("userType") String userType,
-		@PathVariable("subjectCode") String subjectCode,
-		@RequestParam(required = true) String email
-		)
-	{
-		System.out.println(userType+" "+subjectCode);
-		if(userType.equals("Student"))
-			subjectService.addStudentAccess(subjectCode, email);
-		else if(userType.equals("Teacher"))
-			subjectService.addTeacherAccess(subjectCode, email);
-		else
-		{
-			System.out.println("INVALID PATH , please specify user type");
-		}
-	}
-
+	// Proper 
 	@GetMapping("subject/addtopic")
 	public String addtopic(Model model , HttpSession session)
 	{
@@ -174,6 +175,7 @@ public class SubjectController {
 		return "subject/addTopicForm";
 	}
 
+	// Proper Done Byt Gokul
 	@PostMapping("subject/addtopic")
 	public String addtopic(@ModelAttribute("topic") Topic topic ,Model model, HttpSession session,HttpServletRequest request)
 	{
@@ -238,5 +240,87 @@ public class SubjectController {
 	// {
 	// 	subjectService.addTopic(subjectCode, topicName, );
 	// }
+
+	
+	// Proper 
+	@GetMapping("subject/addaccess")
+	public String addAccess(Model model , HttpSession session)
+	{
+		
+
+
+		// model.addAttribute("teacher", tdSession);
+
+		// model.addAttribute("user", udSession);
+		return "subject/addAccessForm";
+	}
+
+
+
+	// Proper Done Byt Gokul
+	@PostMapping("subject/addaccess")
+	public String addAccess(Model model, HttpSession session,HttpServletRequest request)
+	{
+		//System.out.println("without subjecTeacherField " +sub);	// without subjectTeacher
+		// return request.toString();
+
+			// CHECKED IN GET ROUTE
+		// User tdSession = (User)session.getAttribute("teacher");
+		
+		// if(tdSession==null)
+		// {
+		// 	String result = "Ma'am/Sir Login before adding a subject";
+		// 	model.addAttribute("check", result);
+		// 	return "teacher/teacherLoginForm";
+		// }
+
+		User udSession = (User) session.getAttribute("teacher");
+		if(udSession==null)
+		{
+			udSession = (User) session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login");
+				return "redirect:../../";
+			}
+		}
+		System.out.println("Session obj"+ udSession);
+		
+		// if(us==null)
+		// {
+		// 	String result = "Not logged in";
+		// 	model.addAttribute("check", result);
+		// 	return "subject/addAccessForm";
+		// }
+		//System.out.println(tdSession.getId());
+		String subjectCode = request.getParameter("subjectCode");
+		System.out.println("SubjectCode="+subjectCode);
+		//sub.setSubjectTeacher(tdSession);
+		Subject sub = subjectService.getSubject(subjectCode);
+
+		// topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
+		// topicService.saveTopic(topic);
+
+		ArrayList<User> access_of_sub = sub.getSubjectAccess();
+		access_of_sub.add(udSession);
+		sub.setSubjectAccess(access_of_sub);
+
+		subjectService.savesubject(sub);
+
+		
+		//topic.getBelongsToSubject().setSubjectTopics(topic_of_sub);
+		//subjectService.savesubject(topic.getBelongsToSubject());
+
+		
+		//topicService.saveTopic(topic);
+		// subjectService.savesubject(sub);
+		// System.out.println(" added belongstosub Field "+topic);
+		System.out.println("Added access for user "+udSession.getEmail());
+		//subjectService.createSubject(sub);
+		model.addAttribute("subject", sub);
+		//model.addAttribute("teacher", tdSession);
+
+		return "redirect:home";
+	}
 	
 }
