@@ -229,7 +229,12 @@ public class SubjectController {
 		//subjectService.createSubject(sub);
 		//model.addAttribute("subject", sub);
 		//model.addAttribute("teacher", tdSession);
-		return "redirect:home";
+		Subject subject = subjectService.getSubject(subjectCode);
+		model.addAttribute("subject", subject);
+
+		List<Topic> topics_list = topicService.getTopicsBySubject(subject);
+		model.addAttribute("topics", topics_list);
+		return "redirect:"+subjectCode;
 	}
 
 
@@ -325,8 +330,12 @@ public class SubjectController {
 		//subjectService.createSubject(sub);
 		model.addAttribute("subject", sub);
 		//model.addAttribute("teacher", tdSession);
+		Subject subject = subjectService.getSubject(subjectCode);
+		model.addAttribute("subject", subject);
 
-		return "redirect:home";
+		List<Topic> topics_list = topicService.getTopicsBySubject(subject);
+		model.addAttribute("topics", topics_list);
+		return "redirect:"+subjectCode;
 	}
 	
 }

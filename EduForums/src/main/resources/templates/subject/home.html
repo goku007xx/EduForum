@@ -15,8 +15,13 @@
         <button onclick="window.location.href='../subject/addsubject'">Add Subject</button>
     </div>
 
-    <div>
+    <div th:each="topic: ${topics}">
         <!-- LOGIC to display all topics -->
+        <div>
+            <ul>
+                <li><a th:text="${topic.topicName}" th:href="@{{topicId}(topicId=${topic.topicId})}"></a></li>
+            </ul>
+        </div>
     </div>
 </body>    
 </html>
