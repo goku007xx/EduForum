@@ -1,6 +1,8 @@
 package com.example.EduForums.post;
 
 
+import java.util.ArrayList;
+
 import com.example.EduForums.topic.Topic;
 import com.example.EduForums.user.User;
 
@@ -28,6 +30,11 @@ public class Post {
     private String votes;
     private User owner;
 
+    @DBRef
+    private ArrayList<User> UpVoteList;
+    @DBRef
+    private ArrayList<User> DownVoteList;
+
     public Post(String postId, String postTitle,String postDescription, User owner, Topic topic) {
         //this.postId = postId;
         this.postTitle = postTitle;
@@ -39,7 +46,41 @@ public class Post {
         // Integer numVotes = ;
         // this.votes = Integer.toString(numVotes);
         this.votes = Integer.toString(this.upvotes-this.downvotes);
+
+        this.UpVoteList = new ArrayList<User>();
+        this.DownVoteList = new ArrayList<User>();
     }
+
+   
+    public Post(){
+        this.downvotes = 0;
+        this.upvotes = 0;
+        // Integer numVotes = ;
+        // this.votes = Integer.toString(numVotes);
+        this.votes = Integer.toString(this.upvotes-this.downvotes);
+        this.UpVoteList = new ArrayList<User>();
+        this.DownVoteList = new ArrayList<User>();
+    }
+
+    public ArrayList<User> getUpVoteList() {
+        return UpVoteList;
+    }
+
+
+    public void setUpVoteList(ArrayList<User> upVoteList) {
+        UpVoteList = upVoteList;
+    }
+
+
+    public ArrayList<User> getDownVoteList() {
+        return DownVoteList;
+    }
+
+
+    public void setDownVoteList(ArrayList<User> downVoteList) {
+        DownVoteList = downVoteList;
+    }
+
 
     public Topic getTopic() {
         return topic;
@@ -62,17 +103,14 @@ public class Post {
         this.topic = topic;
     }
 
-    public Post(){
-        this.downvotes = 0;
-        this.upvotes = 0;
-    }
+
 
     public void upv() {
         this.upvotes++;   
     }
 
     public void downv() {
-        this.downvotes--;   
+        this.downvotes++;   
     }
 
     public String getPostId() {
@@ -123,6 +161,14 @@ public class Post {
         this.owner = owner;
     }
     
+
     
+    @Override
+    public String toString() {
+        return "Post [downvotes=" + downvotes + ", owner=" + owner + ", postDescription=" + postDescription
+                + ", postId=" + postId + ", postTitle=" + postTitle + ", topic=" + topic + ", upvotes=" + upvotes
+                + ", votes=" + votes + "]";
+    }
+
     
 }

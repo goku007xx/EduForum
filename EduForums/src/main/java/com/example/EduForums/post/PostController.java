@@ -144,7 +144,7 @@ public class PostController {
 	}
 
 	
-	@GetMapping("post/{postid}")
+	@GetMapping("post/upvote/{postid}")
 	public String upvote(@PathVariable("postid") String postid, Model model, HttpSession session){
 		//  CHECK SESSION
 		User udSession = (User)session.getAttribute("teacher");
@@ -175,14 +175,50 @@ public class PostController {
 			return "redirect:../";
 		}
 
-		post.upv();			// update post
-		post.updateVotes();
-		postService.savePost(post);
+		postService.UpvotePost(post, udSession);
+
+		
+				
+		return "redirect:../../topic/"+post.getTopic().getTopicId();
+	}
 
 
-		// MODEL ADD TOPIC AND POSTS OF TOPIC
-				// redirect to topic home
-		return "redirect:../../";
+	@GetMapping("post/downvote/{postid}")
+	public String downvote(@PathVariable("postid") String postid, Model model, HttpSession session){
+		//  CHECK SESSION
+		User udSession = (User)session.getAttribute("teacher");
+		
+		if(udSession==null)
+		{
+			udSession = (User)session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login first");
+				return "redirect:../../";
+			}
+		}
+
+		Post post = postService.getPostById(postid);
+		if(post==null)
+		{
+			System.out.println("No such post");
+				// HANDLE REDIRECT
+		}
+
+		Topic topic = post.getTopic();
+
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), topic.getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("NO access");
+			model.addAttribute("check", "No access");
+			return "redirect:../";
+		}
+
+		postService.DownvotePost(post, udSession);
+
+		
+				
+		return "redirect:../../topic/"+post.getTopic().getTopicId();
 	}
 	
 }

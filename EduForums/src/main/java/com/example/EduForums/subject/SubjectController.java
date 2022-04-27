@@ -161,16 +161,20 @@ public class SubjectController {
 	@GetMapping("subject/addtopic")
 	public String addtopic(Model model , HttpSession session)
 	{
-		User tdSession = (User) session.getAttribute("teacher");
-		System.out.println("Session obj"+ tdSession);
 
 		// no session
-		if(tdSession==null)
+		User udSession = (User) session.getAttribute("teacher");
+		if(udSession==null)
 		{
-			String result = "Ma'am/Sir Login before adding a topic for this subject";
-			model.addAttribute("check", result);
-			return "teacher/teacherLoginForm";
+			udSession = (User) session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login");
+				return "redirect:../";
+			}
 		}
+		System.out.println("Session obj"+ udSession);
+
 
 
 		// model.addAttribute("teacher", tdSession);
@@ -187,15 +191,19 @@ public class SubjectController {
 		//System.out.println("without subjecTeacherField " +sub);	// without subjectTeacher
 		// return request.toString();
 
-		User tdSession = (User)session.getAttribute("teacher");
-		
-		if(tdSession==null)
+		User udSession = (User) session.getAttribute("teacher");
+		if(udSession==null)
 		{
-			String result = "Ma'am/Sir Login before adding a subject";
-			model.addAttribute("check", result);
-			return "teacher/teacherLoginForm";
+			udSession = (User) session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login");
+				return "redirect:../../";
+			}
 		}
-		else if(topic==null)
+		System.out.println("Session obj"+ udSession);
+		
+		if(topic==null)
 		{
 			String result = "No topic req body passed last time";
 			model.addAttribute("check", result);
@@ -208,7 +216,14 @@ public class SubjectController {
 		Subject sub = subjectService.getSubject(subjectCode);
 
 		topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
-		topic.setOwner(tdSession);
+
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), topic.getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("NO access");
+			model.addAttribute("check", "No access");
+			return "redirect:../";
+		}
+		topic.setOwner(udSession);
 		topicService.saveTopic(topic);
 
 		ArrayList<Topic> topic_of_sub = sub.getSubjectTopics();

@@ -232,7 +232,7 @@ public class SubjectService {
 							);
 		
 
-		if(subject.getSubjectTeacher().getEmail()==email)
+		if(subject.getSubjectTeacher().getEmail().equals(email))
 			return true;
 
 		List<User> list = subject.getSubjectAccess();
