@@ -2,8 +2,11 @@ package com.example.EduForums.post;
 
 import java.util.ArrayList;
 
+import com.example.EduForums.subject.SubjectService;
+import com.example.EduForums.teacher.Teacher;
 import com.example.EduForums.topic.Topic;
 import com.example.EduForums.topic.TopicService;
+import com.example.EduForums.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +24,14 @@ public class PostController {
     
     private final PostService postService;
 	private final TopicService topicService;
+	private final SubjectService subjectService;
 	//private final SubjectService subjectService;
 	
 	@Autowired
-	public PostController(PostService postService,TopicService topicService) {
+	public PostController(PostService postService,TopicService topicService, SubjectService subjectService) {
 	    this.postService = postService;
 		this.topicService = topicService;
+		this.subjectService =subjectService;
 	}
 	
 	@GetMapping("topic/{topicid}")
@@ -34,6 +39,21 @@ public class PostController {
 	{
 		// TODO
 		// Perform logic to check if session obj is owner or has acess before displaying
+		//  CHECK SESSION
+		User udSession = (User)session.getAttribute("teacher");
+		
+		if(udSession==null)
+		{
+			udSession = (User)session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login first");
+				model.addAttribute("check", "Need to login first");
+				return "redirect:../";
+			}
+		}
+
+		
 		/*
 		Subject subject = subjectService.getSubject(topicid);
 		model.addAttribute("subject", subject);
@@ -41,13 +61,24 @@ public class PostController {
 		List<Topic> topics_list = topicService.getTopicsBySubject(subject);
 		model.addAttribute("topics", topics_list);
 		*/
+
+
+
 		System.out.println(topicid);
 		Topic topic = topicService.getTopicbyid(topicid);
+
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), topic.getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("NO access");
+			model.addAttribute("check", "No access");
+			return "redirect:../";
+		}
 		//System.out.println(topic);
 		model.addAttribute("topic", topic);
 		model.addAttribute("posts", topic.getTopicPosts());
 
 		Post po = new Post();
+		po.setTopic(topic);
 		model.addAttribute("po", po);
 		return "topic/home";
 	}
@@ -55,6 +86,28 @@ public class PostController {
 	@PostMapping("post/addpost")
 	public String addpost(@ModelAttribute("po") Post post, Model model, HttpSession session,HttpServletRequest request)
 	{
+		//  CHECK SESSION
+		User udSession = (User)session.getAttribute("teacher");
+		
+		if(udSession==null)
+		{
+			udSession = (User)session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login first");
+				return "redirect:../../";
+			}
+		}
+		
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), post.getTopic().getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("Need to login first");
+			model.addAttribute("check", "No access");
+			return "redirect:../../";
+		}
+		// set Owner
+		post.setOwner(udSession);
+
 		String topicId = request.getParameter("topicId");
 		System.out.println("topicId="+topicId);
 		//sub.setSubjectTeacher(tdSession);
