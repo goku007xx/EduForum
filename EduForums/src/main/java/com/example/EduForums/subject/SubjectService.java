@@ -231,6 +231,10 @@ public class SubjectService {
 								()-> new IllegalStateException("subject with subjectCOde "+ subjectCode + " doesn't exist")
 							);
 		
+
+		if(subject.getSubjectTeacher().getEmail()==email)
+			return true;
+
 		List<User> list = subject.getSubjectAccess();
 
 		for(User user: list){

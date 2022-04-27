@@ -24,6 +24,8 @@ public class Post {
     private Integer upvotes;
     @Transient
     private Integer downvotes;
+
+    private Integer votes;
     private User owner;
 
     public Post(String postId, String postTitle,String postDescription, User owner, Topic topic) {
@@ -34,10 +36,19 @@ public class Post {
         this.owner = owner;
         this.downvotes = 0;
         this.upvotes = 0;
+        this.votes = 0;
     }
 
     public Topic getTopic() {
         return topic;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void setVotes() {
+        this.votes = this.upvotes-this.downvotes;
     }
 
     public void setTopic(Topic topic) {

@@ -20,6 +20,8 @@
             <ul>
 				<h1>POST</h1>
                 <li><a th:text="${post.postTitle}"></a></li>
+				<li><span th:text="${post.votes}"></span></li>
+				<li><button onclick="">upvote</button></li>
             </ul>
         </div>
     </div>
@@ -55,6 +57,8 @@
 							placeholder="Enter Description" 
 							/>
 						</div>
+
+						
 
                         <div class = "box-footer">
 							<button type="submit" class = "btn btn-primary">

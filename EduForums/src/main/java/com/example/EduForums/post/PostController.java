@@ -78,7 +78,6 @@ public class PostController {
 		model.addAttribute("posts", topic.getTopicPosts());
 
 		Post po = new Post();
-		po.setTopic(topic);
 		model.addAttribute("po", po);
 		return "topic/home";
 	}
@@ -99,12 +98,6 @@ public class PostController {
 			}
 		}
 		
-		if(!subjectService.isSubAllowUser(udSession.getEmail(), post.getTopic().getBelongsToSubject().getSubjectCode()))
-		{
-			System.out.println("Need to login first");
-			model.addAttribute("check", "No access");
-			return "redirect:../../";
-		}
 		// set Owner
 		post.setOwner(udSession);
 
@@ -113,12 +106,24 @@ public class PostController {
 		//sub.setSubjectTeacher(tdSession);
 		Topic topic = topicService.getTopicbyid(topicId);
 
+
+		if(topic==null)
+			System.out.println("topic not exists");			/* HANDLE in frontend redirect */
+		post.setTopic(topic);
+
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), post.getTopic().getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("Need to login first");
+			model.addAttribute("check", "No access");
+			return "redirect:../../";
+		}
+		
 		/*
 		topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
 		topic.setOwner(tdSession);
 		topicService.saveTopic(topic);
 		*/
-
+		
 		postService.savePost(post);
 		System.out.println("Added post in DB");
 
@@ -136,6 +141,48 @@ public class PostController {
 
 		//subjectService.savesubject(sub);
 
+	}
+
+	
+	@GetMapping("post/{postid}")
+	public String upvote(@PathVariable("postid") String postid, Model model, HttpSession session){
+		//  CHECK SESSION
+		User udSession = (User)session.getAttribute("teacher");
+		
+		if(udSession==null)
+		{
+			udSession = (User)session.getAttribute("student");
+			if(udSession==null)
+			{
+				System.out.println("Need to login first");
+				return "redirect:../../";
+			}
+		}
+
+		Post post = postService.getPostById(postid);
+		if(post==null)
+		{
+			System.out.println("No such post");
+				// HANDLE REDIRECT
+		}
+
+		Topic topic = post.getTopic();
+
+		if(!subjectService.isSubAllowUser(udSession.getEmail(), topic.getBelongsToSubject().getSubjectCode()))
+		{
+			System.out.println("NO access");
+			model.addAttribute("check", "No access");
+			return "redirect:../";
+		}
+
+		post.upv();			// update post
+		post.setVotes();
+		postService.savePost(post);
+
+
+		// MODEL ADD TOPIC AND POSTS OF TOPIC
+				// redirect to topic home
+		return "redirect:../../";
 	}
 	
 }
