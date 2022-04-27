@@ -17,10 +17,10 @@
     <div th:each="post: ${posts}">
         <!-- LOGIC to display all topics -->
         <div>
+			<h1>POST</h1>
             <ul>
-				<h1>POST</h1>
                 <li><a th:text="${post.postTitle}"></a></li>
-				<li><span th:text="${post.votes}"></span></li>
+				<li th:text="${post.votes}"></span></li>
 				<li><button onclick="">upvote</button></li>
             </ul>
         </div>

@@ -176,7 +176,7 @@ public class PostController {
 		}
 
 		post.upv();			// update post
-		post.setVotes();
+		post.updateVotes();
 		postService.savePost(post);
 
 

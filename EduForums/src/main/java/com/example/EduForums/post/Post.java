@@ -20,12 +20,12 @@ public class Post {
     @DBRef
     private Topic topic;
     
-    @Transient
+    // @Transient
     private Integer upvotes;
-    @Transient
+    // @Transient
     private Integer downvotes;
 
-    private Integer votes;
+    private String votes;
     private User owner;
 
     public Post(String postId, String postTitle,String postDescription, User owner, Topic topic) {
@@ -36,19 +36,26 @@ public class Post {
         this.owner = owner;
         this.downvotes = 0;
         this.upvotes = 0;
-        this.votes = 0;
+        // Integer numVotes = ;
+        // this.votes = Integer.toString(numVotes);
+        this.votes = Integer.toString(this.upvotes-this.downvotes);
     }
 
     public Topic getTopic() {
         return topic;
     }
 
-    public Integer getVotes() {
+    public String getVotes() {
         return votes;
     }
 
-    public void setVotes() {
-        this.votes = this.upvotes-this.downvotes;
+    public void setVotes(String votes) {
+        this.votes = votes;
+    }
+
+    public void updateVotes() {
+        Integer numVotes = this.upvotes-this.downvotes;
+        this.votes = Integer.toString(numVotes);
     }
 
     public void setTopic(Topic topic) {
