@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Subject Access</title>
+</head>
+
+<body>
+    <div style="position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);">
+        <form th:action="@{/subject/addaccess}" method="POST">
+            <label>
+                <h4 >
+                    Enter subject code to access the subject
+                </h4>
+            </label>
+            <input type="text" name="subjectCode" class="form-control" placeholder="Enter SubjectCode"
+                style="width:500px;">
+            <br>
+            <button type="submit" class="btn btn-success">submit</button>
+            <br>
+        </form>
+    </div>
+
+</body>
+
+</html>

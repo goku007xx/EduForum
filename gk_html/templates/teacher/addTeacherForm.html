@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add teacher</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class = "container">
+		<!-- <td>
+			<span th:if="${check}">
+				<h5 style="margin:30px 40px;color: red;text-align: center;">
+					Login Unsucessfull,Try again
+				</h5>
+
+
+			</span>
+		</td> -->
+		<div class = "row" style="margin: 30px;">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Teacher details </h1>
+				<div class = "card-body">
+                    
+					<form th:action="@{/admin/addteacher}" th:object = "${teacher}" method="POST">
+						<div class ="form-group">
+							<label>Name </label>
+							<input
+							type = "text"
+							name = "name"
+							th:field = "*{name}"
+							class = "form-control"
+							placeholder="Enter Name" 
+							/>
+						</div>
+						
+						<div class ="form-group">
+							<label> Dept </label>
+							<input
+							type = "text"
+							name = "dept"
+							th:field = "*{dept}"
+							class = "form-control"
+							placeholder="Enter Dept" 
+							/>
+						</div>
+						
+                        <div class ="form-group">
+							<label> Email </label>
+							<input
+							type = "email"
+							name = "email"
+							th:field = "*{email}"
+							class = "form-control"
+							placeholder="Enter email" 
+							/>
+						</div>
+
+                        
+                        <div class ="form-group">
+							<label> trn </label>
+							<input
+							type = "text"
+							name = "trn"
+							th:field = "*{trn}"
+							class = "form-control"
+							placeholder="Enter trn" 
+							/>
+						</div>
+                      
+
+						<div class ="form-group">
+							<label> password </label>
+							<input
+							type = "text"
+							name = "password"
+							th:field = "*{password}"
+							class = "form-control"
+							placeholder="Enter password" 
+							/>
+						</div>
+
+
+
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

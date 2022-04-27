@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>All subjects</title>
+</head>
+
+<body>
+
+    <div>
+        <tr th:each="sub : ${subjects}">
+            <h2 style="text-align: center;margin: 20px;">All subjects</h2>
+            <div class="card" style="width: 600px;align-items: center;margin: 10px auto;">
+                <div class="card-body">
+                    <td th:text="${sub.subjectName}" style="border:1px solid black;">Hello subject 1</td>
+                </div>
+            </div>
+
+        </tr>
+    </div>
+
+
+</body>
+
+</html>

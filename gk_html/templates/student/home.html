@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Student Home</title>
+</head>
+
+<body>
+    <h6 style="margin:30px 40px;color: green;">Login successful</h6>
+    <div>
+        <button onclick="window.location.href='logout'" class="btn btn-danger"
+            style="margin-left: 1000px;margin-top: 20px;">Logout</button>
+    </div>
+
+    <h1 style="text-align: center;">Student home</h1>
+
+
+    <div style="margin: 100px 100px;">
+        <p th:text="${student.email}" style="margin-left: 100px;">Student email</p>
+        <br>
+        <p th:text="${student.name}" style="margin-left: 100px;">Student Name</p>
+    </div>
+</body>
+
+</html>
