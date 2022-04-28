@@ -2,6 +2,10 @@ package com.example.EduForums.student;
 
 
 
+import java.util.List;
+
+import com.example.EduForums.subject.SubjectService;
+import com.example.EduForums.subject.Subject;
 // import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +35,16 @@ public class StudentController {
 	// reference
 	private final StudentService studentService;
 	private final StudentView studentView;
+	private final SubjectService subjectService;
 	
 	@Autowired	// Implicit instatiation of dependency(that are args)
-	public StudentController(StudentService studentService, StudentView studentView) {
+	public StudentController(StudentService studentService, StudentView studentView, SubjectService subjectService) {
 //		 this.studentService = new StudentService();
 		 	// avoid above instead use dependency injection
 		
 		this.studentService = studentService;
 		this.studentView = studentView;
+		this.subjectService = subjectService;
 	}
 
 
@@ -111,6 +117,7 @@ public class StudentController {
 			return "redirect:home";
 		}
 		
+		
 		Student sd = new Student();
 		model.addAttribute("student", sd);
 		return "student/studentLoginForm";
@@ -155,7 +162,14 @@ public class StudentController {
 			return "redirect:login";
 		}
 		
+
+		System.out.println("Came here");
+		List<Subject> subs = subjectService.getSubjectByAccess(sdSession);
+		System.out.println(subs);
+		System.out.println("Printed here");
+
 		model.addAttribute("student", sdSession);
+		model.addAttribute("subs", subs);
 		// System.out.println("model obj "+sd);
 
 		//  Perform check if session is set 

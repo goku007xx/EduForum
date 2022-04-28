@@ -1,35 +1,34 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Index</title>
-        <link th:href="@{/css/style.css}"
-        rel="stylesheet">
-    </head>
-    <body>
-    	<div th:switch="${teachers}">
-    <h2 th:case="null">No users yet!</h2>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div th:switch="${teachers}">
+        <h5 th:case="null"  style="margin:30px 40px;color: red;">No users yet!</h5>
         <div th:case="*">
-            <h2>Teachers</h2>
-            <table style="border:1px solid black;">
+            <h2 style="text-align: center;margin-bottom: 30px;">Teachers</h2>
+            <table style="border:1px solid black; width: 50%;margin: 0 auto;text-align: center;">
                 <thead>
                     <tr>
-                        <th style="border:1px solid black;">Name</th>
-                        <th style="border:1px solid black;">Email</th>
-                        <th style="border:1px solid black;">Dob</th>
-                        <th style="border:1px solid black;">Age</th>
+                        <th style="border:1px solid black;padding:10px 10px;">Name</th>
+                        <th style="border:1px solid black;padding:10px 10px;">Email</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="tea : ${teachers}">
-                    <td th:text="${tea.name}" style="border:1px solid black;"></td>
-                    <td th:text="${tea.email}" style="border:1px solid black;"></td>
-                    <!-- <td th:text="${stu.dob}" style="border:1px solid black;"></td> -->
-                    <!-- <td th:text="${stu.age}" style="border:1px solid black;"></td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>      
-</div>
+                    <tr th:each="tea : ${teachers}">
+                        <td th:text="${tea.name}" style="border:1px solid black;">karam</td>
+                        <td th:text="${tea.email}" style="border:1px solid black;">karam@gmail.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
+
 </html>

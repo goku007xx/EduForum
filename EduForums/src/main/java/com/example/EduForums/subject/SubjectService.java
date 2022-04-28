@@ -69,6 +69,23 @@ public class SubjectService {
 	}
 
 
+	public List<Subject> getSubjectByAccess(User us) {
+		List<Subject> allSubs = subjectRepository.findAll();
+
+		List<Subject> userSubsAccess = allSubs;
+
+		// ArrayList<Integer> toRemove = new ArrayList<>();
+		for(int i=0; i<userSubsAccess.size(); i++){
+			if( !isSubAllowUser(us.getEmail(), userSubsAccess.get(i).getSubjectCode()))
+			{
+				userSubsAccess.remove(i);
+			}
+		}
+
+		
+
+		return userSubsAccess;
+	}
 
 
 // pass subcode, topic obj, user obj

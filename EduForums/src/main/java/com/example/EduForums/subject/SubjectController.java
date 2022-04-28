@@ -326,6 +326,14 @@ public class SubjectController {
 
 		// topic.setBelongsToSubject(sub);	// MISTAKE TO BE FIXED BY GAURAV/GURUKIRAN
 		// topicService.saveTopic(topic);
+		
+			/* ALDREADY HAS ACCESS */
+		System.out.println(subjectService.getSubjectByAccess(udSession).contains(sub));
+		if(subjectService.getSubjectByAccess(udSession).contains(sub))
+		{
+			System.out.println("ALDREADY HAS ACCESS ");
+			return "redirect:../";
+		}
 
 		ArrayList<User> access_of_sub = sub.getSubjectAccess();
 		access_of_sub.add(udSession);

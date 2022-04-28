@@ -47,7 +47,7 @@ public class PostService {
         for(int i=0; i<downv.size();i++){
             if(downv.get(i).getEmail().equals(us.getEmail())){
                 System.out.println("USER has downvoted need to toggle "+us.getEmail());
-                downv.remove(us);
+                downv.remove(i);
                 post.upv();
                 break;
             }
@@ -77,7 +77,7 @@ public class PostService {
         for(int i=0; i<upv.size();i++){
             if(upv.get(i).getEmail().equals(us.getEmail())){
                 System.out.println("USER has upvoted need to toggle "+us.getEmail());
-                upv.remove(us);
+                upv.remove(i);
                 post.downv();
                 break;
             }
