@@ -18,7 +18,7 @@ public class User {
 	protected Dept dept;
 
 	protected String password;
-
+	
 	// @Indexed(unique = true)
 	protected String email;
 
