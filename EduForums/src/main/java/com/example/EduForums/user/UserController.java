@@ -41,11 +41,11 @@ public class UserController {
 		// this.studentView = studentView;
 	}
 
-	// @GetMapping("")
-	// public String roleSelect()
-	// {
-	// 	return "user/default";
-	// }
+	@GetMapping("")
+	public String roleSelect()
+	{
+		return "user/default";
+	}
 
 	// @GetMapping("")
 	// public String loginUser(
