@@ -15,18 +15,17 @@ Admin creates student/teacher accounts, He can manage all the accounts in the fo
 
 ## Quick start
 
+clone the git repository
+`git clone https://github.com/goku007xx/EduForum.git`
 
-```
-//clone the git repository
-git clone https://github.com/goku007xx/EduForum.git
+change the directory
+`cd eduforum/EduForums/`
 
-cd eduforum/EduForums/
+open vscode in the folder using
+`code .`
 
-//open vscode in the folder using
-code .
-```
 
-go to src/main/java/com/example/EduForums open the file EduForumsApplication.java
+go to `src/main/java/com/example/EduForums` open the file `EduForumsApplication.java`
 
 make sure you install the extension by microsoft called `spring initializer java` in extension of visual studio code.
 
